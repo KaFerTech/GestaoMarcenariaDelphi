@@ -17,14 +17,14 @@ object frmLogin: TfrmLogin
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 212
+    Left = 213
     Top = 53
     Width = 25
     Height = 13
     Caption = 'Login'
   end
   object Label2: TLabel
-    Left = 212
+    Left = 213
     Top = 117
     Width = 30
     Height = 13
