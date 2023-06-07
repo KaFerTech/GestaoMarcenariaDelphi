@@ -39,8 +39,6 @@ begin
   //Obtem o local do executavel
   diretorio := ExtractFilePath(ParamStr(0));
 
-  //********Configuração do banco automatico
-
     //Seta a lib do driver
   FbDriverLink.VendorLib:= diretorio + '\FBCLIENT.DLL';
   //Parametros da conexão
