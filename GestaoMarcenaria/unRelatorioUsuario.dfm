@@ -2,8 +2,8 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
   Left = 0
   Top = 0
   Caption = 'Relat'#243'rio de Usu'#225'rios'
-  ClientHeight = 749
-  ClientWidth = 834
+  ClientHeight = 453
+  ClientWidth = 842
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,28 +11,38 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 235
+    Top = 8
+    Width = 66
+    Height = 13
+    Caption = 'Data Inclus'#227'o'
+  end
   object RLReport1: TRLReport
-    Left = 16
-    Top = 80
+    Left = 24
+    Top = 104
     Width = 794
     Height = 1123
+    DataSource = dsRelatorioUsuario
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
     Font.Style = []
+    Visible = False
     object RLBand1: TRLBand
       Left = 38
       Top = 38
       Width = 718
-      Height = 83
+      Height = 131
+      Background.Arrange = baCenter
       Background.Height = 149
-      Background.Stretch = True
       Background.Width = 597
       Background.Picture.Data = {
         0A544A504547496D616765723C0000FFD8FFE000104A46494600010101006000
@@ -522,50 +532,50 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         D9}
       BandType = btHeader
       object RLLabel1: TRLLabel
-        Left = 16
-        Top = 64
-        Width = 44
+        Left = 0
+        Top = 112
+        Width = 27
         Height = 16
-        Caption = 'C'#243'digo'
+        Caption = 'C'#243'd'
       end
       object RLLabel2: TRLLabel
-        Left = 88
-        Top = 64
+        Left = 33
+        Top = 112
         Width = 38
         Height = 16
         Caption = 'Nome'
       end
       object RLLabel3: TRLLabel
-        Left = 216
-        Top = 64
+        Left = 143
+        Top = 112
         Width = 35
         Height = 16
         Caption = 'Login'
       end
       object RLLabel4: TRLLabel
-        Left = 328
-        Top = 64
+        Left = 255
+        Top = 112
         Width = 52
         Height = 16
         Caption = 'Telefone'
       end
       object RLLabel5: TRLLabel
-        Left = 440
-        Top = 64
-        Width = 41
+        Left = 360
+        Top = 112
+        Width = 49
         Height = 16
         Caption = 'E-mail'
       end
       object RLLabel6: TRLLabel
-        Left = 544
-        Top = 64
+        Left = 552
+        Top = 112
         Width = 33
         Height = 16
         Caption = 'Perfil'
       end
       object RLLabel7: TRLLabel
-        Left = 624
-        Top = 64
+        Left = 660
+        Top = 112
         Width = 55
         Height = 16
         Caption = 'Situa'#231#227'o'
@@ -573,29 +583,29 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
     end
     object RLDetailGrid1: TRLDetailGrid
       Left = 38
-      Top = 121
+      Top = 169
       Width = 718
       Height = 22
       object RLDBText1: TRLDBText
-        Left = 16
-        Top = 6
-        Width = 44
+        Left = 0
+        Top = 3
+        Width = 27
         Height = 16
         DataField = 'COD'
         DataSource = dsRelatorioUsuario
         Text = ''
       end
       object RLDBText2: TRLDBText
-        Left = 88
+        Left = 33
         Top = 3
-        Width = 122
+        Width = 104
         Height = 16
         DataField = 'NOME'
         DataSource = dsRelatorioUsuario
         Text = ''
       end
       object RLDBText3: TRLDBText
-        Left = 216
+        Left = 143
         Top = 3
         Width = 106
         Height = 16
@@ -604,7 +614,7 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         Text = ''
       end
       object RLDBText4: TRLDBText
-        Left = 328
+        Left = 255
         Top = 3
         Width = 72
         Height = 16
@@ -613,7 +623,7 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         Text = ''
       end
       object RLDBText5: TRLDBText
-        Left = 440
+        Left = 360
         Top = 3
         Width = 89
         Height = 16
@@ -622,7 +632,7 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         Text = ''
       end
       object RLDBText6: TRLDBText
-        Left = 544
+        Left = 552
         Top = 3
         Width = 49
         Height = 16
@@ -631,7 +641,7 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         Text = ''
       end
       object RLDBText7: TRLDBText
-        Left = 624
+        Left = 660
         Top = 3
         Width = 69
         Height = 16
@@ -640,6 +650,70 @@ object frmRelatorioUsuario: TfrmRelatorioUsuario
         Text = ''
       end
     end
+    object RLBand2: TRLBand
+      Left = 38
+      Top = 191
+      Width = 718
+      Height = 50
+      BandType = btFooter
+    end
+  end
+  object btnImprimir: TButton
+    Left = 229
+    Top = 70
+    Width = 75
+    Height = 25
+    Caption = 'Imprimir'
+    TabOrder = 1
+    OnClick = btnImprimirClick
+  end
+  object cldDtIni: TCalendarPicker
+    Left = 117
+    Top = 32
+    Height = 32
+    CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+    CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+    CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+    CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+    CalendarHeaderInfo.DaysOfWeekFont.Style = []
+    CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+    CalendarHeaderInfo.Font.Color = clWindowText
+    CalendarHeaderInfo.Font.Height = -20
+    CalendarHeaderInfo.Font.Name = 'Segoe UI'
+    CalendarHeaderInfo.Font.Style = []
+    Color = clWindow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGray
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    TextHint = 'select a date'
+  end
+  object cldDtFim: TCalendarPicker
+    Left = 283
+    Top = 32
+    Height = 32
+    CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+    CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+    CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+    CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+    CalendarHeaderInfo.DaysOfWeekFont.Style = []
+    CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+    CalendarHeaderInfo.Font.Color = clWindowText
+    CalendarHeaderInfo.Font.Height = -20
+    CalendarHeaderInfo.Font.Name = 'Segoe UI'
+    CalendarHeaderInfo.Font.Style = []
+    Color = clWindow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGray
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    TextHint = 'select a date'
   end
   object dsRelatorioUsuario: TDataSource
     DataSet = dmRelatorioUsuario.cdsRelatorioUsuario

@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, Data.DB;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, Data.DB, Vcl.StdCtrls,
+  Vcl.WinXCalendars;
 
 type
   TfrmRelatorioUsuario = class(TForm)
@@ -26,9 +27,15 @@ type
     RLDBText6: TRLDBText;
     RLLabel7: TRLLabel;
     RLDBText7: TRLDBText;
+    btnImprimir: TButton;
+    RLBand2: TRLBand;
+    cldDtIni: TCalendarPicker;
+    cldDtFim: TCalendarPicker;
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,13 +51,27 @@ implementation
 
 uses unDmRelatorioUsuario;
 
+procedure TfrmRelatorioUsuario.btnImprimirClick(Sender: TObject);
+begin
+  dmRelatorioUsuario.qryRelatorioUsuario.sql.Clear;
+  dmRelatorioUsuario.qryRelatorioUsuario.sql.add('select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, '+
+  'SIT, DATCAD, DATINAT, case sit when 1 then "Ativo" when 0 then "Inativo" end as Situacao, p.descricao '+
+  'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between ' + cldDtIni.Date +
+  ' and ' + cldDtFim.Date + ';');
 
+  RLReport1.PreviewModal;
+end;
 
 procedure TfrmRelatorioUsuario.FormCreate(Sender: TObject);
 begin
   if not Assigned(dmRelatorioUsuario) then
     dmRelatorioUsuario := tdmRelatorioUsuario.Create(nil);
   dsRelatorioUsuario.dataset := dmRelatorioUsuario.cdsRelatorioUsuario;
+
+  frmRelatorioUsuario.Height := 150;
+  frmRelatorioUsuario.Width := 535;
+
+
 end;
 
 procedure TfrmRelatorioUsuario.FormDestroy(Sender: TObject);
