@@ -1,0 +1,25 @@
+unit unDmEstoqueMaterial;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TdmDmEstoqueMaterial = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmDmEstoqueMaterial: TdmDmEstoqueMaterial;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

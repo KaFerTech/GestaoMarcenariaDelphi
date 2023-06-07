@@ -1,0 +1,31 @@
+object dmConexao: TdmConexao
+  OldCreateOrder = False
+  Height = 224
+  Width = 428
+  object fdConnection: TFDConnection
+    ConnectionName = 'ConexaoMarcenaria'
+    Params.Strings = (
+      
+        'Database=C:\Users\kaiqu\OneDrive\Documentos\Kaique\Delphi\Marcen' +
+        'aria_do_Catarina\DBMARCENARIADOCATARINA.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Server=localhost'
+      'Port=3050'
+      'CharacterSet=UTF8'
+      'DriverID=FbDriverLink')
+    Connected = True
+    Left = 32
+    Top = 24
+  end
+  object fbDriverLink: TFDPhysFBDriverLink
+    DriverID = 'FbDriverLink'
+    Left = 104
+    Top = 24
+  end
+  object wcConexao: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 176
+    Top = 24
+  end
+end

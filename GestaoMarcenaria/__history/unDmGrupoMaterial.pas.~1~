@@ -1,0 +1,25 @@
+unit unDmGrupoMaterial;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TdmDmGrupoMaterial = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmDmGrupoMaterial: TdmDmGrupoMaterial;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

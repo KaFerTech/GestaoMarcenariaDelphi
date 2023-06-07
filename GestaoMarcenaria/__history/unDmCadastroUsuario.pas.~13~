@@ -1,0 +1,55 @@
+unit unDmCadastroUsuario;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.Provider, Data.DB, Datasnap.DBClient;
+
+type
+  TdmCadastroUsuario = class(TDataModule)
+    dspCadastroUsuario: TDataSetProvider;
+    qryCadastroUsuario: TFDQuery;
+    cdsPerfilUsuario: TClientDataSet;
+    dspPerfilUsuario: TDataSetProvider;
+    qryPerfilUsuario: TFDQuery;
+    cdsCadastroUsuario: TClientDataSet;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure cdsCadastroUsuarioBeforePost(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmCadastroUsuario: TdmCadastroUsuario;
+
+implementation
+
+uses UnDmConexao;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TdmCadastroUsuario.cdsCadastroUsuarioBeforePost(DataSet: TDataSet);
+begin
+  // Define o campo id como nulo para um novo registro
+  if cdsCadastroUsuario.State = dsInsert then cdsCadastroUsuario.FieldByName('Cod').Clear;
+end;
+
+procedure TdmCadastroUsuario.DataModuleCreate(Sender: TObject);
+begin
+//  qryCadastroUsuario.connection := dmConexao.fdconnection;
+//  dspCadastroUsuario.DataSet := qryCadastroUsuario;
+//  cdsCadastroUsuario.SetProvider(dspCadastroUsuario);
+//
+//  // comando sql de abertura de tabela
+//  qryCadastroUsuario.sql.Clear;
+//  qryCadastroUsuario.sql.add('select * from USUARIO order by COD');
+end;
+
+end.

@@ -1,0 +1,5 @@
+object dmLogin: TdmLogin
+  OldCreateOrder = False
+  Height = 263
+  Width = 403
+end

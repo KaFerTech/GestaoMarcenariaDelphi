@@ -1,0 +1,24 @@
+object dmLogin: TdmLogin
+  OldCreateOrder = False
+  Height = 236
+  Width = 361
+  object qryLogin: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'select LOGIN, SENHA from usuario')
+    Left = 168
+    Top = 24
+  end
+  object dpsLogin: TDataSetProvider
+    DataSet = qryLogin
+    Left = 168
+    Top = 88
+  end
+  object cdsLogin: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dpsLogin'
+    Left = 168
+    Top = 152
+  end
+end

@@ -1,0 +1,25 @@
+unit unDmLogin;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TdmLogin = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmLogin: TdmLogin;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.
