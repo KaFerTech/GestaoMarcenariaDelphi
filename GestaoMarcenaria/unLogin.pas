@@ -40,7 +40,7 @@ begin
   if (edtLogin.text = 'teste') and (edtSenha.text = 'teste') then
   begin
 
-    ShowMessage('Sistema em Modo de Testes!');
+    //ShowMessage('Sistema em Modo de Testes!');
 
     try
       Application.CreateForm(TFrmPrincipal, FrmPrincipal);

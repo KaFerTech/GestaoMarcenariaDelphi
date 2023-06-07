@@ -130,13 +130,11 @@ begin
 
   if rdbComercial.Checked = true then
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text := 'C';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text := 'C';
   end
   else
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text := 'R';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text := 'R';
   end;
 
   dmCadastroFornecedor.cdsCadastroFornecedor.post;
@@ -193,37 +191,25 @@ procedure TfrmCadastroFornecedor.dsCadastroFornecedorDataChange(Sender: TObject;
 begin
   inherited;
 
-
-  //validar esse código*********************
-//  if not (dmCadastroFornecedor.cdsCadastroFornecedor.state = dsInsert) or
-//    not (dmCadastroFornecedor.cdsCadastroFornecedor.state = dsEdit) then
-//  begin
-
-
-
-    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text = '1'
-    then
-    begin
-      tgsSituacaoFornecedor.state := tssOn;
-    end
-    else
-    begin
-      tgsSituacaoFornecedor.state := tssOff;
-    end;
-
-    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text = 'C' then
-    begin
-      rdbComercial.Checked := true;
-    end
-    else
-    begin
-      rdbResidencial.Checked := true;
-    end;
+  if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text = '1' then
+  begin
+    tgsSituacaoFornecedor.state := tssOn;
+  end
+  else
+  begin
+    tgsSituacaoFornecedor.state := tssOff;
+  end;
 
 
+  if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text = 'C' then
+  begin
+    rdbComercial.Checked := true;
+  end
+  else
+  begin
+    rdbResidencial.Checked := true;
+  end;
 
-//  end;
 
 end;
 
