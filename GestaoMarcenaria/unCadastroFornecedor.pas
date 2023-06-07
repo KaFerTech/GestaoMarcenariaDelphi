@@ -128,6 +128,7 @@ begin
     edtDataInativacaoFornecedor.text := FormatDateTime('dd/mm/yyyy', date);
   end;
 
+
   if rdbComercial.Checked = true then
   begin
     dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text := 'C';

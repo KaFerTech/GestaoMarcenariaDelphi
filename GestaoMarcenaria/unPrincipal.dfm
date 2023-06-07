@@ -227,6 +227,9 @@
     end
     object mmRelatórios: TMenuItem
       Caption = 'Relat'#243'rios'
+      object mmRelUsuario: TMenuItem
+        Action = actRelUsuario
+      end
     end
     object mmAjuda: TMenuItem
       Caption = 'Ajuda'
@@ -314,6 +317,11 @@
       ImageIndex = 14
       ShortCut = 27
       OnExecute = actFecharSistemaExecute
+    end
+    object actRelUsuario: TAction
+      Caption = 'Relat'#243'rio de Usu'#225'rios'
+      ImageIndex = 15
+      OnExecute = actRelUsuarioExecute
     end
   end
   object imgListPrincipal: TImageList

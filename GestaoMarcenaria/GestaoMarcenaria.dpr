@@ -35,7 +35,10 @@ uses
   unDmContasReceber in 'unDmContasReceber.pas' {dmContasReceber: TDataModule},
   unDmCadastroFuncionario in 'unDmCadastroFuncionario.pas' {dmCadastroFuncionario: TDataModule},
   unDmCompras in 'unDmCompras.pas' {dmCompras: TDataModule},
-  unDmVendas in 'unDmVendas.pas' {dmVendas: TDataModule};
+  unDmVendas in 'unDmVendas.pas' {dmVendas: TDataModule},
+  uDocumentacao in 'uDocumentacao.pas',
+  unRelatorioUsuario in 'unRelatorioUsuario.pas' {frmRelatorioUsuario},
+  unDmRelatorioUsuario in 'unDmRelatorioUsuario.pas' {dmRelatorioUsuario: TDataModule};
 
 {$R *.res}
 

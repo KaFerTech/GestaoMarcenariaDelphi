@@ -1,0 +1,32 @@
+object dmRelatorioUsuario: TdmRelatorioUsuario
+  OldCreateOrder = False
+  Height = 264
+  Width = 362
+  object dspCadastroUsuario: TDataSetProvider
+    DataSet = qryCadastroUsuario
+    Left = 160
+    Top = 104
+  end
+  object qryCadastroUsuario: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AutoIncFields = 'COD'
+    SQL.Strings = (
+      'select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, SIT, '
+      'DATCAD, DATINAT, SENHA,'
+      'case sit when 1 then '#39'Ativo'#39' '
+      'when 0 then '#39'Inativo'#39' end as Situacao,'
+      'p.descricao Perfil'
+      'from usuario u'
+      'join perfil p on u.codperfil = p.cod'
+      ';')
+    Left = 160
+    Top = 40
+  end
+  object cdsCadastroUsuario: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCadastroUsuario'
+    Left = 160
+    Top = 168
+  end
+end

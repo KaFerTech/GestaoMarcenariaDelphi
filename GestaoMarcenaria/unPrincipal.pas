@@ -72,6 +72,8 @@ type
     btnCompra: TToolButton;
     mmRealizarVenda: TMenuItem;
     mmRealizarCompra: TMenuItem;
+    actRelUsuario: TAction;
+    mmRelUsuario: TMenuItem;
     procedure actCadastroUsuarioExecute(Sender: TObject);
     procedure btnFecharSistemaClick(Sender: TObject);
     procedure actFecharSistemaExecute(Sender: TObject);
@@ -91,6 +93,7 @@ type
     procedure actVendasExecute(Sender: TObject);
     procedure actComprasExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure actRelUsuarioExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -109,7 +112,7 @@ implementation
 uses unLogin, unSobre, unCadastroUsuario, unCadastroFornecedor,
   unCadastroCliente, unCadastroMaterial, unGrupoMaterial, unEstoqueMaterial,
   unOrcamento, unOrdemServico, unContasPagar, unContasReceber,
-  unCadastroFuncionario, unCompras, unVendas;
+  unCadastroFuncionario, unCompras, unVendas, unRelatorioUsuario;
 
 procedure TfrmPrincipal.actCadastroClienteExecute(Sender: TObject);
 begin
@@ -249,6 +252,17 @@ begin
   finally
     frmOrdemServico.Free;
     frmOrdemServico := nil;
+  end;
+end;
+
+procedure TfrmPrincipal.actRelUsuarioExecute(Sender: TObject);
+begin
+  try
+    Application.CreateForm(TfrmRelatorioUsuario, frmRelatorioUsuario);
+    frmRelatorioUsuario.ShowModal;
+  finally
+    frmRelatorioUsuario.Free;
+    frmRelatorioUsuario := nil;
   end;
 end;
 
