@@ -35,7 +35,8 @@ var
 
 procedure TdmConexao.DataModuleCreate(Sender: TObject);
 begin
-//  diretorio := ExtractFileDir(GetCurrentDir);
+  diretorio := ExtractFileDir(GetCurrentDir); //Obtem o local do executavel
+
 //
 //  fbDriverLink.VendorLib := diretorio + '\FBCLIENT.DLL';
 //  fdConnection.Params.DriverID := 'FbDriverLink';
