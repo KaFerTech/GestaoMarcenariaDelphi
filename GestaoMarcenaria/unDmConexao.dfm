@@ -8,8 +8,9 @@ object dmConexao: TdmConexao
     ConnectionName = 'ConexaoMarcenaria'
     Params.Strings = (
       
-        'Database=C:\Kaique\Marcenaria_do_Catarina\Win32\Debug\DBMARCENAR' +
-        'IADOCATARINA.FDB'
+        'Database=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcen' +
+        'ariaDelphi\GestaoMarcenaria\Win32\Debug\DBMARCENARIADOCATARINA.F' +
+        'DB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'Server=localhost'

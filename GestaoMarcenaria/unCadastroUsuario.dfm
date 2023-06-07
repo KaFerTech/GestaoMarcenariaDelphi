@@ -57,6 +57,7 @@ inherited frmCadastroUsuario: TfrmCadastroUsuario
       Top = 16
       Width = 203
       Height = 21
+      DataField = 'TELEFONE'
       DataSource = dsCadastroUsuario
       Enabled = False
       TabOrder = 0
