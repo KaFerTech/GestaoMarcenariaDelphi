@@ -1,0 +1,91 @@
+unit unDmConexao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Phys.IBBase,
+  Data.DB, FireDAC.Comp.Client, Dialogs;
+
+type
+  TdmConexao = class(TDataModule)
+    fdConnection: TFDConnection;
+    fbDriverLink: TFDPhysFBDriverLink;
+    wcConexao: TFDGUIxWaitCursor;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmConexao: TdmConexao;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+{$R *.dfm}
+
+var
+  diretorio: string;
+
+procedure TdmConexao.DataModuleCreate(Sender: TObject);
+begin
+  diretorio := ExtractFilePath(ParamStr(0)); //Obtem o local do executavel
+
+    //Seta a lib do driver
+  FbDriverLink.VendorLib:= diretorio + '\FBCLIENT.DLL';
+  //Parametros da conexão
+  fdConnection.Params.DriverID := 'FbDriverLink';
+  fdConnection.Params.Add('Server=127.0.0.1'); //('Server=127.0.0.1');
+  fdConnection.Params.Add('Port=3050');
+  //fdConnection.Params.Database := 'C:\CursoEscriba\Dados\DbChamados.fdb';
+  fdConnection.Params.Database := diretorio + '\DBMARCENARIADOCATARINA.FDB';
+  fdConnection.Params.UserName := 'SYSDBA';
+  fdConnection.Params.Password := 'masterkey';
+  fdConnection.Params.Add('csUTF8');
+
+//  // tenta conectar com o banco
+//  if not Assigned(fdConnection) then
+//  begin
+//    ShowMessage('Erro: fdConnection não está atribuído.');
+//    Exit;
+//  end;
+//
+//  if fdConnection.Connected then
+//  begin
+//    ShowMessage('A conexão já está aberta.');
+//    Exit;
+//  end;
+//
+//  try
+//    fdConnection.Connected := True;
+//  except
+//    on E: Exception do
+//    begin
+//      ShowMessage('Erro de conexão com o banco. ' +
+//        'O Sistema retornou o seguinte erro: ' + E.Message);
+//    end;
+//
+//  end;
+
+end;
+
+
+
+procedure TdmConexao.DataModuleDestroy(Sender: TObject);
+begin
+  // Desconecta o banco
+  try
+    fdConnection.Connected := False;
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
+end;
+
+end.

@@ -35,45 +35,48 @@ var
 
 procedure TdmConexao.DataModuleCreate(Sender: TObject);
 begin
-  diretorio := ExtractFileDir(GetCurrentDir); //Obtem o local do executavel
 
-//
-//  fbDriverLink.VendorLib := diretorio + '\FBCLIENT.DLL';
-//  fdConnection.Params.DriverID := 'FbDriverLink';
-//  fdConnection.Params.Add('Server=127.0.0.1');
-//  fdConnection.Params.Add('Port=3050');
-//  fdConnection.Params.Database := diretorio + '\DBMARCENARIADOCATARINA.FDB';
-//  fdConnection.Params.UserName := 'SYSDBA';
-//  fdConnection.Params.Password := 'masterkey';
-//  fdConnection.Params.Add('CharacterSet=csUTF8');
-//
-//  // tenta conectar com o banco
-//  if not Assigned(fdConnection) then
-//  begin
-//    ShowMessage('Erro: fdConnection não está atribuído.');
-//    Exit;
-//  end;
-//
-//  if fdConnection.Connected then
-//  begin
-//    ShowMessage('A conexão já está aberta.');
-//    Exit;
-//  end;
-//
-//  try
-//    fdConnection.Connected := True;
-//  except
-//    on E: Exception do
-//    begin
-//      ShowMessage('Erro de conexão com o banco. ' +
-//        'O Sistema retornou o seguinte erro: ' + E.Message);
-//    end;
-//
-//  end;
+  //Obtem o local do executavel
+  diretorio := ExtractFilePath(ParamStr(0));
+
+    //Seta a lib do driver
+  FbDriverLink.VendorLib:= diretorio + '\FBCLIENT.DLL';
+  //Parametros da conexão
+  fdConnection.Params.DriverID := 'FbDriverLink';
+  fdConnection.Params.Add('Server=127.0.0.1'); //('Server=127.0.0.1');
+  fdConnection.Params.Add('Port=3050');
+  //fdConnection.Params.Database := 'C:\CursoEscriba\Dados\DbChamados.fdb';
+  fdConnection.Params.Database := diretorio + '\DBMARCENARIADOCATARINA.FDB';
+  fdConnection.Params.UserName := 'SYSDBA';
+  fdConnection.Params.Password := 'masterkey';
+  fdConnection.Params.Add('CharacterSet=csUTF8');
+
+
+  // tenta conectar com o banco
+  if not Assigned(fdConnection) then
+  begin
+    ShowMessage('Erro: fdConnection não está atribuído.');
+    Exit;
+  end;
+
+  if fdConnection.Connected then
+  begin
+    ShowMessage('A conexão já está aberta.');
+    Exit;
+  end;
+
+  try
+    fdConnection.Connected := True;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro de conexão com o banco. ' +
+        'O Sistema retornou o seguinte erro: ' + E.Message);
+    end;
+
+  end;
 
 end;
-
-
 
 procedure TdmConexao.DataModuleDestroy(Sender: TObject);
 begin
