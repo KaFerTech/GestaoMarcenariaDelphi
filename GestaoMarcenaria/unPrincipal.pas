@@ -72,7 +72,7 @@ type
     btnCompra: TToolButton;
     mmRealizarVenda: TMenuItem;
     mmRealizarCompra: TMenuItem;
-    actRelUsuario: TAction;
+    actRelatorios: TAction;
     mmRelUsuario: TMenuItem;
     procedure actCadastroUsuarioExecute(Sender: TObject);
     procedure btnFecharSistemaClick(Sender: TObject);
@@ -93,9 +93,11 @@ type
     procedure actVendasExecute(Sender: TObject);
     procedure actComprasExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure actRelUsuarioExecute(Sender: TObject);
+    procedure actRelatoriosExecute(Sender: TObject);
   private
     { Private declarations }
+    Function VersaoExe: String;
+
   public
     { Public declarations }
     var
@@ -140,10 +142,10 @@ procedure TfrmPrincipal.actCadastroFuncionarioExecute(Sender: TObject);
 begin
   try
     Application.CreateForm(TfrmCadastroFuncionario, frmCadastroFuncionario);
-    frmCadastroUsuario.ShowModal;
+    frmCadastroFuncionario.ShowModal;
   finally
-    frmCadastroUsuario.Free;
-    frmCadastroUsuario := nil;
+    frmCadastroFuncionario.Free;
+    frmCadastroFuncionario := nil;
   end;
 end;
 
@@ -255,7 +257,7 @@ begin
   end;
 end;
 
-procedure TfrmPrincipal.actRelUsuarioExecute(Sender: TObject);
+procedure TfrmPrincipal.actRelatoriosExecute(Sender: TObject);
 begin
   try
     Application.CreateForm(TfrmRelatorioUsuario, frmRelatorioUsuario);
@@ -307,6 +309,10 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
 
+  StatusBar1.Panels[0].Text := 'Usuário: ' + frmLogin.edtLogin.Text;
+  StatusBar1.Panels[1].Text := 'Data: ' + FormatDateTime('dd/mm/yyyy', date);
+  StatusBar1.Panels[2].Text := 'Versão: ' + VersaoExe;
+
   //autenticado := false;
   //Self.Visible := False;
 
@@ -323,6 +329,43 @@ begin
 //  frmPrincipal.Show; // Ocultar o formulário de login
 //  Application.MainFormOnTaskbar := True;
 //  Application.BringToFront; // Trazer o aplicativo para a frente
+end;
+
+Function TfrmPrincipal.VersaoExe: String;
+type
+   PFFI = ^vs_FixedFileInfo;
+var
+   F       : PFFI;
+   Handle  : Dword;
+   Len     : Longint;
+   Data    : Pchar;
+   Buffer  : Pointer;
+   Tamanho : Dword;
+   Parquivo: Pchar;
+   Arquivo : String;
+begin
+   Arquivo  := Application.ExeName;
+   Parquivo := StrAlloc(Length(Arquivo) + 1);
+   StrPcopy(Parquivo, Arquivo);
+   Len := GetFileVersionInfoSize(Parquivo, Handle);
+   Result := '';
+   if Len > 0 then
+   begin
+      Data:=StrAlloc(Len+1);
+      if GetFileVersionInfo(Parquivo,Handle,Len,Data) then
+      begin
+         VerQueryValue(Data, '',Buffer,Tamanho);
+         F := PFFI(Buffer);
+         Result := Format('%d.%d.%d.%d',
+                          [HiWord(F^.dwFileVersionMs),
+                           LoWord(F^.dwFileVersionMs),
+                           HiWord(F^.dwFileVersionLs),
+                           Loword(F^.dwFileVersionLs)]
+                         );
+      end;
+      StrDispose(Data);
+   end;
+   StrDispose(Parquivo);
 end;
 
 end.

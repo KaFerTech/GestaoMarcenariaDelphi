@@ -12,8 +12,9 @@ object dmCadastroUsuario: TdmCadastroUsuario
     Connection = dmConexao.fdConnection
     UpdateOptions.AutoIncFields = 'COD'
     SQL.Strings = (
-      'select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, SIT, '
-      'DATCAD, DATINAT, SENHA,'
+      'select u.COD, NOME, LOGIN, TELEFONE, EMAIL, '
+      'CODPERFIL, SIT, DATCAD DATA_CADASTRO, '
+      'DATINAT DATA_INATIVACAO, SENHA,'
       'case sit when 1 then '#39'Ativo'#39' '
       'when 0 then '#39'Inativo'#39' end as Situacao,'
       'p.descricao Perfil'

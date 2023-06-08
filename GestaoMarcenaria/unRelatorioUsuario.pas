@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, Data.DB, Vcl.StdCtrls,
-  Vcl.WinXCalendars;
+  Vcl.WinXCalendars, RLPreviewForm;
 
 type
   TfrmRelatorioUsuario = class(TForm)
@@ -53,11 +53,27 @@ uses unDmRelatorioUsuario;
 
 procedure TfrmRelatorioUsuario.btnImprimirClick(Sender: TObject);
 begin
+
+  dmRelatorioUsuario.qryRelatorioUsuario.Close;
+
+
+//  ShowMessage('select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, '+
+//  'SIT, DATCAD, DATINAT, case sit when 1 then "Ativo" when 0 then "Inativo" end as Situacao, p.descricao '+
+//  'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between '+
+//  QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtIni.Date)) +
+//  ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtFim.Date)) + ';');
+
+
   dmRelatorioUsuario.qryRelatorioUsuario.sql.Clear;
   dmRelatorioUsuario.qryRelatorioUsuario.sql.add('select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, '+
-  'SIT, DATCAD, DATINAT, case sit when 1 then "Ativo" when 0 then "Inativo" end as Situacao, p.descricao '+
-  'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between ' + cldDtIni.Date +
-  ' and ' + cldDtFim.Date + ';');
+  'SIT, DATCAD, DATINAT, case sit when 1 then ''Ativo'' when 0 then ''Inativo'' end as Situacao, p.descricao '+
+  'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between '+
+  QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtIni.Date)) +
+  ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtFim.Date)) + ';');
+
+  dmRelatorioUsuario.qryRelatorioUsuario.Open;
+
+  dsRelatorioUsuario.DataSet.Refresh;
 
   RLReport1.PreviewModal;
 end;
@@ -66,12 +82,11 @@ procedure TfrmRelatorioUsuario.FormCreate(Sender: TObject);
 begin
   if not Assigned(dmRelatorioUsuario) then
     dmRelatorioUsuario := tdmRelatorioUsuario.Create(nil);
-  dsRelatorioUsuario.dataset := dmRelatorioUsuario.cdsRelatorioUsuario;
 
+
+  dsRelatorioUsuario.dataset := dmRelatorioUsuario.cdsRelatorioUsuario;
   frmRelatorioUsuario.Height := 150;
   frmRelatorioUsuario.Width := 535;
-
-
 end;
 
 procedure TfrmRelatorioUsuario.FormDestroy(Sender: TObject);

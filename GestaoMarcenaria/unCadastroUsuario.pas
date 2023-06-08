@@ -147,8 +147,6 @@ begin
     ShowMessage('As duas senhas devem ser iguais!')
   end;
 
-
-
 end;
 
 procedure TfrmCadastroUsuario.AtualizaNomeGrid;
@@ -164,7 +162,7 @@ begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
 
-    if dbgFormPadrao.Columns.Items[i].Title.caption = 'IDPERFIL' then
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODPERFIL' then
     begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
@@ -174,8 +172,7 @@ begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
 
-    dbgFormPadrao.Columns[i].Width :=
-      Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+    dbgFormPadrao.Columns[i].Width := Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
   end;
 end;
 
