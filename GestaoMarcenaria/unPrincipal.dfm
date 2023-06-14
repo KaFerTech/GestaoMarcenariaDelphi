@@ -235,6 +235,12 @@
         Action = actRelatorios
       end
     end
+    object Email1: TMenuItem
+      Caption = 'Configura'#231#245'es'
+      object EnviarEmail1: TMenuItem
+        Action = actConfigurarEmail
+      end
+    end
     object mmAjuda: TMenuItem
       Caption = 'Ajuda'
       object mmSobre: TMenuItem
@@ -326,6 +332,11 @@
       Caption = 'Relat'#243'rios'
       ImageIndex = 15
       OnExecute = actRelatoriosExecute
+    end
+    object actConfigurarEmail: TAction
+      Caption = 'Configurar Email'
+      ImageIndex = 16
+      OnExecute = actConfigurarEmailExecute
     end
   end
   object imgListPrincipal: TImageList

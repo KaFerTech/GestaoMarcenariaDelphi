@@ -175,8 +175,35 @@ begin
 end;
 
 procedure TfrmCadastroFuncionario.AtualizaNomeGrid;
+var
+  i: Integer;
 begin
+  // Ajusta o tamanho dos campos do grid
+  for i := 0 to dbgFormPadrao.Columns.Count - 1 do
+  begin
 
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODGENERO' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODUSUARIO' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'SIT' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODTIPENDER' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    dbgFormPadrao.Columns[i].Width := Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+  end;
 end;
 
 procedure TfrmCadastroFuncionario.DesativaCampos;
@@ -200,6 +227,8 @@ begin
   tgsSituacaoFuncionario.Enabled := false;
   rdbComercial.Enabled := false;
   rdbResidencial.Enabled := false;
+  rdbMasculino.Enabled := false;
+  rdbFeminino.Enabled := false;
   tgsSituacaoFuncionario.state := tssOn;
 end;
 
@@ -301,8 +330,10 @@ begin
   edtComplementoFuncionario.Enabled := true;
   cboUsuarioFuncionario.Enabled := true;
   tgsSituacaoFuncionario.Enabled := true;
-  rdbComercial.Enabled := false;
-  rdbResidencial.Enabled := false;
+  rdbComercial.Enabled := true;
+  rdbResidencial.Enabled := true;
+  rdbMasculino.Enabled := true;
+  rdbFeminino.Enabled := true;
   tgsSituacaoFuncionario.state := tssOn;
 end;
 

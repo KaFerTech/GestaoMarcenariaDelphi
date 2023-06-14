@@ -2,7 +2,6 @@ inherited frmCadastroFuncionario: TfrmCadastroFuncionario
   Caption = 'Cadastro de Funcionarios'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  ExplicitTop = -56
   PixelsPerInch = 96
   TextHeight = 13
   inherited dbgFormPadrao: TDBGrid

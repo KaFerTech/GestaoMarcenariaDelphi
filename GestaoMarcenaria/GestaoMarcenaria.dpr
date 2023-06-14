@@ -38,7 +38,8 @@ uses
   unDmVendas in 'unDmVendas.pas' {dmVendas: TDataModule},
   uDocumentacao in 'uDocumentacao.pas',
   unRelatorioUsuario in 'unRelatorioUsuario.pas' {frmRelatorioUsuario},
-  unDmRelatorioUsuario in 'unDmRelatorioUsuario.pas' {dmRelatorioUsuario: TDataModule};
+  unDmRelatorioUsuario in 'unDmRelatorioUsuario.pas' {dmRelatorioUsuario: TDataModule},
+  unEnvioEmail in 'unEnvioEmail.pas' {frmEnvioEmail};
 
 {$R *.res}
 

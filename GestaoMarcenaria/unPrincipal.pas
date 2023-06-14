@@ -74,6 +74,9 @@ type
     mmRealizarCompra: TMenuItem;
     actRelatorios: TAction;
     mmRelUsuario: TMenuItem;
+    Email1: TMenuItem;
+    EnviarEmail1: TMenuItem;
+    actConfigurarEmail: TAction;
     procedure actCadastroUsuarioExecute(Sender: TObject);
     procedure btnFecharSistemaClick(Sender: TObject);
     procedure actFecharSistemaExecute(Sender: TObject);
@@ -94,6 +97,7 @@ type
     procedure actComprasExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure actRelatoriosExecute(Sender: TObject);
+    procedure actConfigurarEmailExecute(Sender: TObject);
   private
     { Private declarations }
     Function VersaoExe: String;
@@ -114,7 +118,7 @@ implementation
 uses unLogin, unSobre, unCadastroUsuario, unCadastroFornecedor,
   unCadastroCliente, unCadastroMaterial, unGrupoMaterial, unEstoqueMaterial,
   unOrcamento, unOrdemServico, unContasPagar, unContasReceber,
-  unCadastroFuncionario, unCompras, unVendas, unRelatorioUsuario;
+  unCadastroFuncionario, unCompras, unVendas, unRelatorioUsuario, unEnvioEmail;
 
 procedure TfrmPrincipal.actCadastroClienteExecute(Sender: TObject);
 begin
@@ -201,6 +205,17 @@ begin
   finally
     frmContasReceber.Free;
     frmContasReceber := nil;
+  end;
+end;
+
+procedure TfrmPrincipal.actConfigurarEmailExecute(Sender: TObject);
+begin
+  try
+    Application.CreateForm(TfrmEnvioEmail, frmEnvioEmail);
+    frmEnvioEmail.ShowModal;
+  finally
+    frmEnvioEmail.Free;
+    frmEnvioEmail := nil;
   end;
 end;
 
