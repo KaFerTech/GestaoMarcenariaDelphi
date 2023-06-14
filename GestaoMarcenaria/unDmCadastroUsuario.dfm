@@ -27,7 +27,7 @@ object dmCadastroUsuario: TdmCadastroUsuario
   object cdsPerfilUsuario: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspPerfilUsuario'
+    ProviderName = 'dspCadastroUsuario'
     Left = 264
     Top = 144
   end

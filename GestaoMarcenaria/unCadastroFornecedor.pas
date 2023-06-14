@@ -56,6 +56,7 @@ type
     procedure actExcluirExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
     procedure dsCadastroFornecedorDataChange(Sender: TObject; Field: TField);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     procedure AtualizaNomeGrid;
@@ -116,7 +117,6 @@ end;
 
 procedure TfrmCadastroFornecedor.actSalvarExecute(Sender: TObject);
 begin
-
   if tgsSituacaoFornecedor.state = tssOn then
   begin
     dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text := '1';
@@ -128,14 +128,15 @@ begin
     edtDataInativacaoFornecedor.text := FormatDateTime('dd/mm/yyyy', date);
   end;
 
-
   if rdbComercial.Checked = true then
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text := 'C';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
+      .text := 'C';
   end
   else
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text := 'R';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
+      .text := 'R';
   end;
 
   dmCadastroFornecedor.cdsCadastroFornecedor.post;
@@ -192,25 +193,30 @@ procedure TfrmCadastroFornecedor.dsCadastroFornecedorDataChange(Sender: TObject;
 begin
   inherited;
 
-  if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text = '1' then
+  if not(dmCadastroFornecedor.cdsCadastroFornecedor.state in [dsEdit, dsInsert])
+  then
   begin
-    tgsSituacaoFornecedor.state := tssOn;
-  end
-  else
-  begin
-    tgsSituacaoFornecedor.state := tssOff;
+
+    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text = '1'
+    then
+    begin
+      tgsSituacaoFornecedor.state := tssOn;
+    end
+    else
+    begin
+      tgsSituacaoFornecedor.state := tssOff;
+    end;
+
+    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
+      .text = 'C' then
+    begin
+      rdbComercial.Checked := true;
+    end
+    else
+    begin
+      rdbResidencial.Checked := true;
+    end;
   end;
-
-
-  if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO').text = 'C' then
-  begin
-    rdbComercial.Checked := true;
-  end
-  else
-  begin
-    rdbResidencial.Checked := true;
-  end;
-
 
 end;
 
@@ -220,6 +226,17 @@ begin
   if not Assigned(dmCadastroFornecedor) then
     dmCadastroFornecedor := tdmCadastroFornecedor.Create(nil);
   dsCadastroFornecedor.dataset := dmCadastroFornecedor.cdsCadastroFornecedor;
+end;
+
+procedure TfrmCadastroFornecedor.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  // fecha o data set e destruo objeto
+  if Assigned(dmCadastroFornecedor) then
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.Close;
+    freeandnil(dmCadastroFornecedor);
+  end;
 end;
 
 procedure TfrmCadastroFornecedor.FormShow(Sender: TObject);

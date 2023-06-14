@@ -32,6 +32,8 @@ type
     cldDtIni: TCalendarPicker;
     cldDtFim: TCalendarPicker;
     Label1: TLabel;
+    ckbAtivos: TCheckBox;
+    ckbInativos: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -52,24 +54,28 @@ implementation
 uses unDmRelatorioUsuario;
 
 procedure TfrmRelatorioUsuario.btnImprimirClick(Sender: TObject);
+var
+  vSit: String;
 begin
-
   dmRelatorioUsuario.qryRelatorioUsuario.Close;
 
-
-//  ShowMessage('select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, '+
-//  'SIT, DATCAD, DATINAT, case sit when 1 then "Ativo" when 0 then "Inativo" end as Situacao, p.descricao '+
-//  'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between '+
-//  QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtIni.Date)) +
-//  ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtFim.Date)) + ';');
-
+  if (ckbAtivos.Checked) and (ckbInativos.Checked) then
+    vSit := ' and sit in (1, 0)'
+  else if (ckbAtivos.Checked = false) and (ckbInativos.Checked = false) then
+    vSit := ''
+  else if (ckbAtivos.Checked = true) and (ckbInativos.Checked = false) then
+    vSit := ' and sit in (1)'
+  else if (ckbAtivos.Checked = false) and (ckbInativos.Checked = true) then
+    vSit := ' and sit in (0)';
 
   dmRelatorioUsuario.qryRelatorioUsuario.sql.Clear;
-  dmRelatorioUsuario.qryRelatorioUsuario.sql.add('select u.COD, NOME, LOGIN, TELEFONE, EMAIL, CODPERFIL, '+
-  'SIT, DATCAD, DATINAT, case sit when 1 then ''Ativo'' when 0 then ''Inativo'' end as Situacao, p.descricao '+
+  dmRelatorioUsuario.qryRelatorioUsuario.sql.add('select u.COD, NOME, LOGIN, ' +
+  'TELEFONE, EMAIL, CODPERFIL, SIT, DATCAD, DATINAT, case sit when 1 ' +
+  'then ''Ativo'' when 0 then ''Inativo'' end as Situacao, p.descricao '+
   'Perfil from usuario u join perfil p on u.codperfil = p.cod where DATCAD between '+
   QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtIni.Date)) +
-  ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtFim.Date)) + ';');
+  ' and ' + QuotedStr(FormatDateTime('yyyy-mm-dd', cldDtFim.Date)) +
+  vSit + ';');
 
   dmRelatorioUsuario.qryRelatorioUsuario.Open;
 
@@ -86,7 +92,7 @@ begin
 
   dsRelatorioUsuario.dataset := dmRelatorioUsuario.cdsRelatorioUsuario;
   frmRelatorioUsuario.Height := 150;
-  frmRelatorioUsuario.Width := 535;
+  frmRelatorioUsuario.Width := 550;
 end;
 
 procedure TfrmRelatorioUsuario.FormDestroy(Sender: TObject);
