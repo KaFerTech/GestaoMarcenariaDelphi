@@ -25,7 +25,7 @@ object dmCadastroFuncionario: TdmCadastroFuncionario
       'f.NUMERO, f.COMPLEMENTO,f.TIPOENDERECO CODTIPENDER,'
       'case f.TIPOENDERECO when '#39'R'#39' then '#39'Residencial'#39' '
       'when '#39'C'#39' then '#39'Comercial'#39' end as TIPOENDERECO,'
-      'f.CODUSUARIO, u.NOME USUARIO'
+      'f.CODUSUARIO, u.LOGIN USUARIO'
       'FROM FUNCIONARIO f'
       'JOIN USUARIO u ON u.COD = f.CODUSUARIO')
     Left = 152

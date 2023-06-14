@@ -143,23 +143,23 @@ begin
 
   if rdbComercial.Checked = true then
   begin
-    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('TIPOENDERECO')
+    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODTIPENDER')
       .text := 'C';
   end
   else
   begin
-    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('TIPOENDERECO')
+    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODTIPENDER')
       .text := 'R';
   end;
 
   if rdbMasculino.Checked = true then
   begin
-    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('GENERO')
+    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODGENERO')
       .text := 'M';
   end
   else
   begin
-    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('GENERO')
+    dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODGENERO')
       .text := 'F';
   end;
 
@@ -251,7 +251,7 @@ begin
       tgsSituacaoFuncionario.state := tssOff;
     end;
 
-    if dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('TIPOENDERECO').text = 'C' then
+    if dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODTIPENDER').text = 'C' then
     begin
       rdbComercial.Checked := true;
     end
@@ -260,7 +260,7 @@ begin
       rdbResidencial.Checked := true;
     end;
 
-    if dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('GENERO').text = 'M' then
+    if dmCadastroFuncionario.cdsCadastroFuncionario.FieldByName('CODGENERO').text = 'M' then
     begin
       rdbMasculino.Checked := true;
     end

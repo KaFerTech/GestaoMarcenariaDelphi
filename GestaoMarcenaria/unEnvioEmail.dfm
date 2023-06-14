@@ -2,7 +2,7 @@ object frmEnvioEmail: TfrmEnvioEmail
   Left = 0
   Top = 0
   Caption = 'Configura'#231#245'es de E-mail'
-  ClientHeight = 463
+  ClientHeight = 441
   ClientWidth = 406
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,6 +12,8 @@ object frmEnvioEmail: TfrmEnvioEmail
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
@@ -41,6 +43,7 @@ object frmEnvioEmail: TfrmEnvioEmail
       Width = 217
       Height = 21
       TabOrder = 0
+      OnKeyPress = edtHostKeyPress
     end
     object edtPorta: TEdit
       Left = 303
@@ -48,6 +51,7 @@ object frmEnvioEmail: TfrmEnvioEmail
       Width = 84
       Height = 21
       TabOrder = 1
+      OnKeyPress = edtPortaKeyPress
     end
   end
   object GroupBox2: TGroupBox
@@ -77,13 +81,16 @@ object frmEnvioEmail: TfrmEnvioEmail
       Width = 339
       Height = 21
       TabOrder = 0
+      OnKeyPress = edtEmailUsuarioKeyPress
     end
     object edtSenha: TEdit
       Left = 48
       Top = 43
       Width = 339
       Height = 21
+      PasswordChar = '*'
       TabOrder = 1
+      OnKeyPress = edtSenhaKeyPress
     end
   end
   object GroupBox3: TGroupBox
@@ -113,13 +120,15 @@ object frmEnvioEmail: TfrmEnvioEmail
       Width = 339
       Height = 21
       TabOrder = 0
+      OnKeyPress = edtAssuntoKeyPress
     end
-    object Edit6: TEdit
+    object edtEmail: TEdit
       Left = 48
       Top = 43
       Width = 339
       Height = 21
       TabOrder = 1
+      OnKeyPress = edtEmailKeyPress
     end
   end
   object GroupBox4: TGroupBox
@@ -135,8 +144,6 @@ object frmEnvioEmail: TfrmEnvioEmail
       Width = 386
       Height = 153
       Align = alClient
-      Lines.Strings = (
-        'mmDescricao')
       TabOrder = 0
       ExplicitLeft = 3
       ExplicitTop = 16
@@ -148,17 +155,19 @@ object frmEnvioEmail: TfrmEnvioEmail
     Left = 80
     Top = 393
     Width = 75
-    Height = 25
+    Height = 40
     Caption = 'Salvar'
     TabOrder = 4
+    OnClick = btnSalvarClick
   end
   object btnCancelar: TButton
     Left = 239
     Top = 393
     Width = 75
-    Height = 25
+    Height = 40
     Caption = 'Cancelar'
     TabOrder = 5
+    OnClick = btnCancelarClick
   end
   object IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL
     MaxLineAction = maException
@@ -167,13 +176,13 @@ object frmEnvioEmail: TfrmEnvioEmail
     SSLOptions.Mode = sslmUnassigned
     SSLOptions.VerifyMode = []
     SSLOptions.VerifyDepth = 0
-    Left = 96
-    Top = 432
+    Left = 128
+    Top = 320
   end
   object IdSMTP1: TIdSMTP
     SASLMechanisms = <>
-    Left = 128
-    Top = 432
+    Left = 160
+    Top = 320
   end
   object IdMessage1: TIdMessage
     AttachmentEncoding = 'MIME'
@@ -186,11 +195,11 @@ object frmEnvioEmail: TfrmEnvioEmail
     Recipients = <>
     ReplyTo = <>
     ConvertPreamble = True
-    Left = 160
-    Top = 432
+    Left = 192
+    Top = 320
   end
   object ImageList1: TImageList
-    Left = 192
-    Top = 432
+    Left = 224
+    Top = 320
   end
 end

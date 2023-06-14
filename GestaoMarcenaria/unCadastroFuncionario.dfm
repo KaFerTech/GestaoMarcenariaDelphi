@@ -403,7 +403,7 @@ inherited frmCadastroFuncionario: TfrmCadastroFuncionario
       DataSource = dsCadastroFuncionario
       Enabled = False
       KeyField = 'COD'
-      ListField = 'NOME'
+      ListField = 'LOGIN'
       ListSource = dsUsuarioFuncionario
       TabOrder = 0
     end
