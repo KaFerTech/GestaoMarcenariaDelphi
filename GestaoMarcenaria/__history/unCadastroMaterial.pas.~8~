@@ -1,0 +1,53 @@
+unit unCadastroMaterial;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.WinXCtrls, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmCadastroMaterial = class(TfrmPadrao)
+    gbF4: TGroupBox;
+    edtCodigoMaterial: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoMaterial: TToggleSwitch;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoMaterial: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoMaterial: TDBEdit;
+    dsCadastroMaterial: TDataSource;
+    gbF3: TGroupBox;
+    edtNomeMaterial: TDBEdit;
+    gbU6: TGroupBox;
+    cboGrupoMaterial: TDBLookupComboBox;
+    dsGrupoMaterial: TDataSource;
+    GroupBox3: TGroupBox;
+    edtEstoqueMaximo: TDBEdit;
+    GroupBox4: TGroupBox;
+    edtEstoqueMinimo: TDBEdit;
+    GroupBox5: TGroupBox;
+    edtCodEAN: TDBEdit;
+    GroupBox6: TGroupBox;
+    GroupBox7: TGroupBox;
+    edtObservacao: TDBEdit;
+    cboUnMedida: TDBComboBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroMaterial: TfrmCadastroMaterial;
+
+implementation
+
+{$R *.dfm}
+
+uses unDmCadastroMaterial;
+
+end.

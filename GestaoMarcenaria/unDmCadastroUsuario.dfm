@@ -13,11 +13,11 @@ object dmCadastroUsuario: TdmCadastroUsuario
     UpdateOptions.AutoIncFields = 'COD'
     SQL.Strings = (
       'select u.COD, NOME, LOGIN, TELEFONE, EMAIL, '
-      'CODPERFIL, SIT, DATCAD DATA_CADASTRO, '
-      'DATINAT DATA_INATIVACAO, SENHA,'
-      'case sit when 1 then '#39'Ativo'#39' '
-      'when 0 then '#39'Inativo'#39' end as Situacao,'
-      'p.descricao Perfil'
+      'CODPERFIL, p.descricao PERFIL,'
+      'SIT CODSIT, case sit when 1 then '#39'Ativo'#39' '
+      'when 0 then '#39'Inativo'#39' end as SITUACAO,'
+      'DATCAD DATA_CADASTRO, '
+      'DATINAT DATA_INATIVACAO, SENHA'
       'from usuario u'
       'join perfil p on u.codperfil = p.cod'
       ';')
@@ -27,7 +27,7 @@ object dmCadastroUsuario: TdmCadastroUsuario
   object cdsPerfilUsuario: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspCadastroUsuario'
+    ProviderName = 'dspPerfilUsuario'
     Left = 264
     Top = 144
   end

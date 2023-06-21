@@ -1,0 +1,19 @@
+object dmCadastroCliente: TdmCadastroCliente
+  OldCreateOrder = False
+  Height = 234
+  Width = 304
+  object qryCadastroCliente: TFDQuery
+    Left = 152
+    Top = 16
+  end
+  object dstCadastroCliente: TDataSetProvider
+    Left = 152
+    Top = 80
+  end
+  object cdsCadastroCliente: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 152
+    Top = 144
+  end
+end

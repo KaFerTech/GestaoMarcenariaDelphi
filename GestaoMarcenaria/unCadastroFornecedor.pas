@@ -158,13 +158,12 @@ begin
   for i := 0 to dbgFormPadrao.Columns.Count - 1 do
   begin
 
-    if dbgFormPadrao.Columns.Items[i].Title.caption = 'SIT' then
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODSIT' then
     begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
 
-    dbgFormPadrao.Columns[i].Width :=
-      Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+    dbgFormPadrao.Columns[i].Width := Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
   end;
 end;
 

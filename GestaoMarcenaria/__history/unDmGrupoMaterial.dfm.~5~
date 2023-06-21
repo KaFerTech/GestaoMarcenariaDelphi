@@ -1,0 +1,26 @@
+object dmGrupoMaterial: TdmGrupoMaterial
+  OldCreateOrder = False
+  Height = 261
+  Width = 346
+  object qryGrupoMaterial: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'SELECT a.COD, a.SIT CODSIT,'
+      'case a.sit when 1 then '#39'Ativo'#39' '
+      'when 0 then '#39'Inativo'#39' end as SITUACAO,'
+      'a.NOME, a.DATCAD, a.DATINAT'
+      'FROM GRUPOMATERIAL a ')
+    Left = 168
+    Top = 40
+  end
+  object dspGrupoMaterial: TDataSetProvider
+    Left = 168
+    Top = 104
+  end
+  object cdsGrupoMaterial: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 168
+    Top = 168
+  end
+end

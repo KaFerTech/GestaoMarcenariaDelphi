@@ -3,15 +3,53 @@ unit unCadastroMaterial;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
   Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
-  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin;
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.WinXCtrls, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls, System.UITypes;
 
 type
   TfrmCadastroMaterial = class(TfrmPadrao)
+    gbF4: TGroupBox;
+    edtCodigoMaterial: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoMaterial: TToggleSwitch;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoMaterial: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoMaterial: TDBEdit;
+    dsCadastroMaterial: TDataSource;
+    gbF3: TGroupBox;
+    edtNomeMaterial: TDBEdit;
+    gbU6: TGroupBox;
+    cboGrupoMaterial: TDBLookupComboBox;
+    dsGrupoMaterial: TDataSource;
+    GroupBox3: TGroupBox;
+    edtEstoqueMaximo: TDBEdit;
+    GroupBox4: TGroupBox;
+    edtEstoqueMinimo: TDBEdit;
+    GroupBox5: TGroupBox;
+    edtCodEAN: TDBEdit;
+    GroupBox6: TGroupBox;
+    GroupBox7: TGroupBox;
+    edtObservacao: TDBEdit;
+    cboUnMedida: TDBComboBox;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dsCadastroMaterialDataChange(Sender: TObject; Field: TField);
+    procedure actIncluirExecute(Sender: TObject);
+    procedure actAlterarExecute(Sender: TObject);
+    procedure actExcluirExecute(Sender: TObject);
+    procedure actCancelarExecute(Sender: TObject);
+    procedure actSalvarExecute(Sender: TObject);
   private
     { Private declarations }
+    procedure AtualizaNomeGrid;
+    procedure InclusaoEdicao;
+    procedure DesativaCampos;
   public
     { Public declarations }
   end;
@@ -22,5 +60,162 @@ var
 implementation
 
 {$R *.dfm}
+
+uses unDmCadastroMaterial;
+
+procedure TfrmCadastroMaterial.actAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  InclusaoEdicao;
+  dmCadastroMaterial.cdsCadastroMaterial.Edit;
+  edtNomeMaterial.SetFocus;
+end;
+
+procedure TfrmCadastroMaterial.actCancelarExecute(Sender: TObject);
+begin
+  if messagedlg('Deseja mesmo cancelar o registro?', mtconfirmation,
+    [mbyes, mbno], 0) = mryes then
+  begin
+    dmCadastroMaterial.cdsCadastroMaterial.Cancel;
+    DesativaCampos;
+    inherited;
+  end;
+end;
+
+procedure TfrmCadastroMaterial.actExcluirExecute(Sender: TObject);
+begin
+  inherited;
+  if messagedlg('Deseja mesmo excluir o registro?', mtconfirmation,
+    [mbyes, mbno], 0) = mryes then
+
+  begin
+    dmCadastroMaterial.cdsCadastroMaterial.delete;
+    dmCadastroMaterial.cdsCadastroMaterial.ApplyUpdates(0);
+  end;
+end;
+
+procedure TfrmCadastroMaterial.actIncluirExecute(Sender: TObject);
+begin
+  inherited;
+  InclusaoEdicao;
+  dmCadastroMaterial.cdsCadastroMaterial.append;
+  edtDataInclusaoMaterial.text := FormatDateTime('dd/mm/yyyy', date);
+  edtNomeMaterial.SetFocus;
+end;
+
+procedure TfrmCadastroMaterial.actSalvarExecute(Sender: TObject);
+begin
+  if tgsSituacaoMaterial.state = tssOn then
+  begin
+    dmCadastroMaterial.cdsCadastroMaterial.FieldByName('CODSIT').text := '1';
+    edtDataInativacaoMaterial.text := '';
+  end
+  else
+  begin
+    dmCadastroMaterial.cdsCadastroMaterial.FieldByName('CODSIT').text := '0';
+    edtDataInativacaoMaterial.text := FormatDateTime('dd/mm/yyyy', date);
+  end;
+
+  dmCadastroMaterial.cdsCadastroMaterial.post;
+  if (dmCadastroMaterial.cdsCadastroMaterial.ChangeCount > 0) then
+    dmCadastroMaterial.cdsCadastroMaterial.ApplyUpdates(-1);
+
+  dmCadastroMaterial.cdsCadastroMaterial.Close;
+  dmCadastroMaterial.cdsCadastroMaterial.Open;
+  AtualizaNomeGrid;
+  DesativaCampos;
+  inherited;
+end;
+
+procedure TfrmCadastroMaterial.AtualizaNomeGrid;
+var
+  i: Integer;
+begin
+  // Ajusta o tamanho dos campos do grid
+  for i := 0 to dbgFormPadrao.Columns.Count - 1 do
+  begin
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODSIT' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    dbgFormPadrao.Columns[i].Width :=
+      Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+  end;
+end;
+
+procedure TfrmCadastroMaterial.DesativaCampos;
+begin
+  edtNomeMaterial.Enabled := false;
+  cboGrupoMaterial.Enabled := false;
+  cboUnMedida.Enabled := false;
+  edtEstoqueMinimo.Enabled := false;
+  edtEstoqueMaximo.Enabled := false;
+  edtCodEAN.Enabled := false;
+  edtObservacao.Enabled := false;
+  tgsSituacaoMaterial.Enabled := false;
+end;
+
+procedure TfrmCadastroMaterial.dsCadastroMaterialDataChange(Sender: TObject;
+  Field: TField);
+begin
+  inherited;
+
+  if not(dmCadastroMaterial.cdsCadastroMaterial.state in [dsEdit, dsInsert])
+  then
+  begin
+    if dmCadastroMaterial.cdsCadastroMaterial.FieldByName('CODSIT').text = '1'
+    then
+    begin
+      tgsSituacaoMaterial.state := tssOn;
+    end
+    else
+    begin
+      tgsSituacaoMaterial.state := tssOff;
+    end;
+  end;
+end;
+
+procedure TfrmCadastroMaterial.FormCreate(Sender: TObject);
+begin
+  inherited;
+  // criando o datamodule de clientes para uso
+  if not Assigned(dmCadastroMaterial) then
+    dmCadastroMaterial := tdmCadastroMaterial.Create(nil);
+  dsCadastroMaterial.dataset := dmCadastroMaterial.cdsCadastroMaterial;
+end;
+
+procedure TfrmCadastroMaterial.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  // fecha o data set e destruo objeto
+  if Assigned(dmCadastroMaterial) then
+  begin
+    dmCadastroMaterial.cdsCadastroMaterial.Close;
+    freeandnil(dmCadastroMaterial);
+  end;
+end;
+
+procedure TfrmCadastroMaterial.FormShow(Sender: TObject);
+begin
+  inherited;
+  // abro o dataset
+  dmCadastroMaterial.cdsCadastroMaterial.Open;
+  dmCadastroMaterial.cdsGrupoMaterial.Open;
+  AtualizaNomeGrid;
+end;
+
+procedure TfrmCadastroMaterial.InclusaoEdicao;
+begin
+  edtNomeMaterial.Enabled := true;
+  cboGrupoMaterial.Enabled := true;
+  cboUnMedida.Enabled := true;
+  edtEstoqueMinimo.Enabled := true;
+  edtEstoqueMaximo.Enabled := true;
+  edtCodEAN.Enabled := true;
+  edtObservacao.Enabled := true;
+  tgsSituacaoMaterial.Enabled := true;
+  tgsSituacaoMaterial.State := tssOn;
+end;
 
 end.

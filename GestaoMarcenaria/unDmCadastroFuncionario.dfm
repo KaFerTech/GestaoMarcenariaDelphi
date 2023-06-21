@@ -27,7 +27,7 @@ object dmCadastroFuncionario: TdmCadastroFuncionario
       'when '#39'C'#39' then '#39'Comercial'#39' end as TIPOENDERECO,'
       'f.CODUSUARIO, u.LOGIN USUARIO'
       'FROM FUNCIONARIO f'
-      'JOIN USUARIO u ON u.COD = f.CODUSUARIO')
+      'LEFT JOIN USUARIO u ON u.COD = f.CODUSUARIO')
     Left = 152
     Top = 16
   end

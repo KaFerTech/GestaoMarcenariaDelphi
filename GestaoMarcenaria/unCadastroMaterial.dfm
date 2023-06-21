@@ -1,5 +1,229 @@
 inherited frmCadastroMaterial: TfrmCadastroMaterial
   Caption = 'Cadastro de Materiais'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
+  inherited dbgFormPadrao: TDBGrid
+    DataSource = dsCadastroMaterial
+  end
+  object gbF4: TGroupBox [3]
+    Left = 875
+    Top = 56
+    Width = 117
+    Height = 41
+    Caption = 'C'#243'digo'
+    TabOrder = 3
+    object edtCodigoMaterial: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'COD'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object gbF5: TGroupBox [4]
+    Left = 875
+    Top = 150
+    Width = 117
+    Height = 41
+    Caption = 'Situa'#231#227'o do Cadastro'
+    TabOrder = 4
+    object tgsSituacaoMaterial: TToggleSwitch
+      Left = 3
+      Top = 16
+      Width = 72
+      Height = 20
+      Enabled = False
+      State = tssOn
+      TabOrder = 0
+    end
+  end
+  object GroupBox1: TGroupBox [5]
+    Left = 875
+    Top = 197
+    Width = 117
+    Height = 41
+    Caption = 'Data de Inativa'#231#227'o'
+    TabOrder = 5
+    object edtDataInativacaoMaterial: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'DATINAT'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object GroupBox2: TGroupBox [6]
+    Left = 875
+    Top = 103
+    Width = 117
+    Height = 41
+    Caption = 'Data de Inclus'#227'o'
+    TabOrder = 6
+    object edtDataInclusaoMaterial: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'DATCAD'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object gbF3: TGroupBox [7]
+    Left = 8
+    Top = 56
+    Width = 566
+    Height = 41
+    Caption = 'Nome do Material'
+    TabOrder = 7
+    object edtNomeMaterial: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 560
+      Height = 21
+      DataField = 'NOME'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object gbU6: TGroupBox [8]
+    Left = 593
+    Top = 56
+    Width = 256
+    Height = 42
+    Caption = 'Grupo de Materiais'
+    TabOrder = 8
+    object cboGrupoMaterial: TDBLookupComboBox
+      Left = 3
+      Top = 16
+      Width = 250
+      Height = 21
+      DataField = 'CODGRUPOMATERIAL'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      KeyField = 'COD'
+      ListField = 'NOME'
+      ListSource = dsGrupoMaterial
+      TabOrder = 0
+    end
+  end
+  object GroupBox3: TGroupBox [9]
+    Left = 441
+    Top = 117
+    Width = 193
+    Height = 42
+    Caption = 'Estoque Maximo'
+    TabOrder = 9
+    object edtEstoqueMaximo: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 187
+      Height = 21
+      DataField = 'ESTOQUEMAX'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object GroupBox4: TGroupBox [10]
+    Left = 229
+    Top = 117
+    Width = 193
+    Height = 42
+    Caption = 'Estoque Minimo'
+    TabOrder = 10
+    object edtEstoqueMinimo: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 187
+      Height = 21
+      DataField = 'ESTOQUEMIN'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object GroupBox5: TGroupBox [11]
+    Left = 653
+    Top = 117
+    Width = 193
+    Height = 42
+    Caption = 'C'#243'digo EAN'
+    TabOrder = 11
+    object edtCodEAN: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 187
+      Height = 21
+      DataField = 'CODEAN'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object GroupBox6: TGroupBox [12]
+    Left = 8
+    Top = 117
+    Width = 201
+    Height = 42
+    Caption = 'Unidade de Medida'
+    TabOrder = 12
+    object cboUnMedida: TDBComboBox
+      Left = 3
+      Top = 15
+      Width = 195
+      Height = 21
+      DataField = 'UNIDADEMEDIDA'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      Items.Strings = (
+        'Caixa (CX)'
+        'Comprimento (M)'
+        'Litro (L)'
+        'Pacote (PT)'
+        'Pe'#231'a (P'#199')'
+        'Quilograma (KG)'
+        'Unidade (UN)')
+      TabOrder = 0
+    end
+  end
+  object GroupBox7: TGroupBox [13]
+    Left = 8
+    Top = 176
+    Width = 841
+    Height = 41
+    Caption = 'Observa'#231#227'o'
+    TabOrder = 13
+    object edtObservacao: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 835
+      Height = 21
+      DataField = 'OBSERVACAO'
+      DataSource = dsCadastroMaterial
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object dsCadastroMaterial: TDataSource
+    DataSet = dmCadastroMaterial.cdsCadastroMaterial
+    OnDataChange = dsCadastroMaterialDataChange
+    Left = 240
+    Top = 368
+  end
+  object dsGrupoMaterial: TDataSource
+    DataSet = dmCadastroMaterial.cdsGrupoMaterial
+    Left = 344
+    Top = 368
+  end
 end

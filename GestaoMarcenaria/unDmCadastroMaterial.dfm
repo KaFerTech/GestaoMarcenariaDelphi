@@ -1,5 +1,54 @@
 object dmCadastroMaterial: TdmCadastroMaterial
   OldCreateOrder = False
-  Height = 150
-  Width = 215
+  Height = 260
+  Width = 395
+  object qryCadastroMaterial: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AutoIncFields = 'COD'
+    SQL.Strings = (
+      'SELECT a.COD, a.NOME, '
+      'a.CODGRUPOMATERIAL, '
+      'GM.NOME GRUPOMATERIAL,'
+      'a.SIT CODSIT, case a.sit when 1 then '#39'Ativo'#39' '
+      'when 0 then '#39'Inativo'#39' end as SITUACAO, '
+      'a.DATCAD, a.DATINAT,'
+      'a.UNIDADEMEDIDA, a.ESTOQUEMIN, a.ESTOQUEMAX, '
+      'a.CODEAN, a.OBSERVACAO'
+      'FROM MATERIAL a'
+      'LEFT JOIN GRUPOMATERIAL gm on gm.COD = a.CODGRUPOMATERIAL')
+    Left = 168
+    Top = 40
+  end
+  object dspCadastroMaterial: TDataSetProvider
+    DataSet = qryCadastroMaterial
+    Left = 168
+    Top = 104
+  end
+  object cdsCadastroMaterial: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCadastroMaterial'
+    Left = 168
+    Top = 168
+  end
+  object qryGrupoMaterial: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'SELECT a.COD, a.SIT, a.NOME, a.DATCAD, a.DATINAT'
+      'FROM GRUPOMATERIAL a ')
+    Left = 296
+    Top = 40
+  end
+  object dspGrupoMaterial: TDataSetProvider
+    DataSet = qryGrupoMaterial
+    Left = 296
+    Top = 104
+  end
+  object cdsGrupoMaterial: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspGrupoMaterial'
+    Left = 296
+    Top = 168
+  end
 end

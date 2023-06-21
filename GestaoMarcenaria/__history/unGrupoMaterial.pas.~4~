@@ -1,0 +1,40 @@
+unit unGrupoMaterial;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.WinXCtrls, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmGrupoMaterial = class(TfrmPadrao)
+    gbF4: TGroupBox;
+    edtCodigoGrupoMaterial: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoGrupoMaterial: TToggleSwitch;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoGrupoMaterial: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoGrupoMaterial: TDBEdit;
+    gbF3: TGroupBox;
+    edtNomeGrupoMaterial: TDBEdit;
+    dsGrupoMaterial: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGrupoMaterial: TfrmGrupoMaterial;
+
+implementation
+
+{$R *.dfm}
+
+uses unDmGrupoMaterial;
+
+end.

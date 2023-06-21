@@ -1,0 +1,48 @@
+unit unEstoqueMaterial;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.WinXCtrls, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmEstoqueMaterial = class(TfrmPadrao)
+    dsEstoqueMaterial: TDataSource;
+    gbF4: TGroupBox;
+    edtCodigoEstoqueMaterial: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoEstoqueMaterial: TToggleSwitch;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoEstoqueMaterial: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoEstoqueMaterial: TDBEdit;
+    procedure actIncluirExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmEstoqueMaterial: TfrmEstoqueMaterial;
+
+implementation
+
+{$R *.dfm}
+
+uses unDmEstoqueMaterial;
+
+procedure TfrmEstoqueMaterial.actIncluirExecute(Sender: TObject);
+begin
+  inherited;
+  // criando o datamodule de clientes para uso
+  if not Assigned(dmCadastroFuncionario) then
+    dmCadastroFuncionario := tdmCadastroFuncionario.Create(nil);
+  dsCadastroFuncionario.dataset := dmCadastroFuncionario.cdsCadastroFuncionario;
+end;
+
+end.

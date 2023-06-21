@@ -1,0 +1,24 @@
+object dmCadastroCliente: TdmCadastroCliente
+  OldCreateOrder = False
+  Height = 234
+  Width = 304
+  object qryCadastroCliente: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'select * from cliente')
+    Left = 152
+    Top = 16
+  end
+  object dstCadastroCliente: TDataSetProvider
+    DataSet = qryCadastroCliente
+    Left = 152
+    Top = 80
+  end
+  object cdsCadastroCliente: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dstCadastroCliente'
+    Left = 152
+    Top = 144
+  end
+end

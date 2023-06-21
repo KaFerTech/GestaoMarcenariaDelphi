@@ -1,0 +1,5 @@
+object dmEstoqueMaterial: TdmEstoqueMaterial
+  OldCreateOrder = False
+  Height = 258
+  Width = 315
+end

@@ -120,12 +120,12 @@ begin
   begin
     if tgsSituacaoUsuario.state = tssOn then
     begin
-      dmCadastroUsuario.cdsCadastroUsuario.FieldByName('Sit').text := '1';
+      dmCadastroUsuario.cdsCadastroUsuario.FieldByName('CODSIT').text := '1';
       edtDataInativacaoUsuario.text := '';
     end
     else
     begin
-      dmCadastroUsuario.cdsCadastroUsuario.FieldByName('Sit').text := '0';
+      dmCadastroUsuario.cdsCadastroUsuario.FieldByName('CODSIT').text := '0';
       edtDataInativacaoUsuario.text := FormatDateTime('dd/mm/yyyy', date);
     end;
 
@@ -167,7 +167,7 @@ begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
 
-    if dbgFormPadrao.Columns.Items[i].Title.caption = 'SIT' then
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODSIT' then
     begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
@@ -207,7 +207,7 @@ procedure TfrmCadastroUsuario.dsCadastroUsuarioDataChange(Sender: TObject;
   Field: TField);
 begin
   inherited;
-  if dmCadastroUsuario.cdsCadastroUsuario.FieldByName('Sit').text = '1' then
+  if dmCadastroUsuario.cdsCadastroUsuario.FieldByName('CODSIT').text = '1' then
   begin
     tgsSituacaoUsuario.state := tssOn;
   end

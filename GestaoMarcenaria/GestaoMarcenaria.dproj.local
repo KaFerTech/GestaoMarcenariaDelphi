@@ -117,9 +117,9 @@
     <Transaction>2023/06/07 10:34:37.000.718,=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas</Transaction>
     <Transaction>2023/06/07 10:34:58.000.427,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unDmRelatorioUsuario.pas</Transaction>
     <Transaction>2023/06/07 10:34:58.000.427,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.dfm=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unDmRelatorioUsuario.dfm</Transaction>
-    <Transaction>2023/06/14 10:57:34.256,=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas</Transaction>
-    <Transaction>2023/06/14 10:58:02.381,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unEnvioEmail.dfm=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.dfm</Transaction>
-    <Transaction>2023/06/14 10:58:02.381,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unEnvioEmail.pas=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas</Transaction>
+    <Transaction>2023/06/14 10:57:34.000.256,=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas</Transaction>
+    <Transaction>2023/06/14 10:58:02.000.381,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unEnvioEmail.dfm=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.dfm</Transaction>
+    <Transaction>2023/06/14 10:58:02.000.381,C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\unEnvioEmail.pas=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcenariaDelphi\GestaoMarcenaria\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="uCriptografia.pas"/>

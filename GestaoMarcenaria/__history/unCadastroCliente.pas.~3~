@@ -1,0 +1,64 @@
+unit unCadastroCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.WinXCtrls,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmCadastroCliente = class(TfrmPadrao)
+    gbCpfCnpj: TGroupBox;
+    edtCpfCnpjCliente: TDBEdit;
+    gbF3: TGroupBox;
+    edtNomeCliente: TDBEdit;
+    gbF4: TGroupBox;
+    edtCodigoCliente: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoFornecedor: TToggleSwitch;
+    gbF7: TGroupBox;
+    edtCepCliente: TDBEdit;
+    gbF8: TGroupBox;
+    edtUfCliente: TDBEdit;
+    gbF9: TGroupBox;
+    edtCidadeCliente: TDBEdit;
+    gbF10: TGroupBox;
+    edtBairroCliente: TDBEdit;
+    gbF11: TGroupBox;
+    edtTipoLogradouroCliente: TDBEdit;
+    gbF12: TGroupBox;
+    edtLogradouroCliente: TDBEdit;
+    gbF13: TGroupBox;
+    edtNumeroCliente: TDBEdit;
+    gbF14: TGroupBox;
+    edtComplementoCliente: TDBEdit;
+    gbF6: TGroupBox;
+    edtTelefoneCliente: TDBEdit;
+    gbF15: TGroupBox;
+    rdbComercial: TRadioButton;
+    rdbResidencial: TRadioButton;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoCliente: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoCliente: TDBEdit;
+    GroupBox3: TGroupBox;
+    rdbFisica: TRadioButton;
+    RadioButton2: TRadioButton;
+    dsCadastroCliente: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroCliente: TfrmCadastroCliente;
+
+implementation
+
+{$R *.dfm}
+
+end.

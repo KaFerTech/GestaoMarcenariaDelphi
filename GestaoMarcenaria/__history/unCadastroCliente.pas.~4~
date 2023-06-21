@@ -1,0 +1,144 @@
+unit unCadastroCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.WinXCtrls,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmCadastroCliente = class(TfrmPadrao)
+    gbCpfCnpj: TGroupBox;
+    edtCpfCnpjCliente: TDBEdit;
+    gbF3: TGroupBox;
+    edtNomeCliente: TDBEdit;
+    gbF4: TGroupBox;
+    edtCodigoCliente: TDBEdit;
+    gbF5: TGroupBox;
+    tgsSituacaoFornecedor: TToggleSwitch;
+    gbF7: TGroupBox;
+    edtCepCliente: TDBEdit;
+    gbF8: TGroupBox;
+    edtUfCliente: TDBEdit;
+    gbF9: TGroupBox;
+    edtCidadeCliente: TDBEdit;
+    gbF10: TGroupBox;
+    edtBairroCliente: TDBEdit;
+    gbF11: TGroupBox;
+    edtTipoLogradouroCliente: TDBEdit;
+    gbF12: TGroupBox;
+    edtLogradouroCliente: TDBEdit;
+    gbF13: TGroupBox;
+    edtNumeroCliente: TDBEdit;
+    gbF14: TGroupBox;
+    edtComplementoCliente: TDBEdit;
+    gbF6: TGroupBox;
+    edtTelefoneCliente: TDBEdit;
+    gbF15: TGroupBox;
+    rdbComercial: TRadioButton;
+    rdbResidencial: TRadioButton;
+    GroupBox1: TGroupBox;
+    edtDataInativacaoCliente: TDBEdit;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoCliente: TDBEdit;
+    GroupBox3: TGroupBox;
+    rdbFisica: TRadioButton;
+    RadioButton2: TRadioButton;
+    dsCadastroCliente: TDataSource;
+    procedure actIncluirExecute(Sender: TObject);
+    procedure actAlterarExecute(Sender: TObject);
+    procedure actExcluirExecute(Sender: TObject);
+    procedure actCancelarExecute(Sender: TObject);
+    procedure actSalvarExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroCliente: TfrmCadastroCliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmCadastroCliente.actAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  InclusaoEdicao;
+  dmCadastroFornecedor.cdsCadastroFornecedor.Edit;
+  edtCnpjFornecedor.SetFocus;
+end;
+
+procedure TfrmCadastroCliente.actCancelarExecute(Sender: TObject);
+begin
+  if messagedlg('Deseja mesmo cancelar o registro?', mtconfirmation,
+    [mbyes, mbno], 0) = mryes then
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.Cancel;
+    DesativaCampos;
+    inherited;
+  end;
+end;
+
+procedure TfrmCadastroCliente.actExcluirExecute(Sender: TObject);
+begin
+  inherited;
+  if messagedlg('Deseja mesmo excluir o registro?', mtconfirmation,
+    [mbyes, mbno], 0) = mryes then
+
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.delete;
+    dmCadastroFornecedor.cdsCadastroFornecedor.ApplyUpdates(0);
+  end;
+end;
+
+procedure TfrmCadastroCliente.actIncluirExecute(Sender: TObject);
+begin
+  inherited;
+  InclusaoEdicao;
+  dmCadastroFornecedor.cdsCadastroFornecedor.append;
+  edtDataInclusaoFornecedor.text := FormatDateTime('dd/mm/yyyy', date);
+  edtCnpjFornecedor.SetFocus;
+end;
+
+procedure TfrmCadastroCliente.actSalvarExecute(Sender: TObject);
+begin
+  if tgsSituacaoFornecedor.state = tssOn then
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text := '1';
+    edtDataInativacaoFornecedor.text := '';
+  end
+  else
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text := '0';
+    edtDataInativacaoFornecedor.text := FormatDateTime('dd/mm/yyyy', date);
+  end;
+
+  if rdbComercial.Checked = true then
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
+      .text := 'C';
+  end
+  else
+  begin
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
+      .text := 'R';
+  end;
+
+  dmCadastroFornecedor.cdsCadastroFornecedor.post;
+  if (dmCadastroFornecedor.cdsCadastroFornecedor.ChangeCount > 0) then
+    dmCadastroFornecedor.cdsCadastroFornecedor.ApplyUpdates(-1);
+
+  dmCadastroFornecedor.cdsCadastroFornecedor.Close;
+  dmCadastroFornecedor.cdsCadastroFornecedor.Open;
+  AtualizaNomeGrid;
+  DesativaCampos;
+  inherited;
+end;
+
+end.
