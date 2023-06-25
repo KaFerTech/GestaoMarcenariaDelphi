@@ -1,0 +1,259 @@
+inherited frmEstoqueMaterial: TfrmEstoqueMaterial
+  Caption = 'Estoque de Materiais'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel [0]
+    Left = 11
+    Top = 161
+    Width = 60
+    Height = 16
+    Caption = 'Materiais'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+  end
+  object Label2: TLabel [1]
+    Left = 608
+    Top = 161
+    Width = 139
+    Height = 16
+    Caption = 'Materiais em Estoque'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+  end
+  inherited ToolBar1: TToolBar
+    inherited btnAlterar: TToolButton
+      Enabled = False
+    end
+  end
+  inherited dbgFormPadrao: TDBGrid
+    DataSource = dsEstoqueMaterial
+  end
+  object Panel2: TPanel [5]
+    Left = 0
+    Top = 50
+    Width = 1000
+    Height = 105
+    Align = alTop
+    TabOrder = 3
+    object gbF4: TGroupBox
+      Left = 867
+      Top = 6
+      Width = 117
+      Height = 41
+      Caption = 'C'#243'digo'
+      TabOrder = 0
+      object edtCodigoEstoqueMaterial: TDBEdit
+        Left = 3
+        Top = 15
+        Width = 111
+        Height = 21
+        DataField = 'COD'
+        DataSource = dsEstoqueMaterial
+        Enabled = False
+        TabOrder = 0
+      end
+    end
+    object GroupBox3: TGroupBox
+      Left = 8
+      Top = 6
+      Width = 117
+      Height = 41
+      Caption = 'Data da Movimenta'#231#227'o'
+      TabOrder = 1
+      object edtDataMovimentacao: TDBEdit
+        Left = 3
+        Top = 15
+        Width = 111
+        Height = 21
+        DataField = 'DATMOV'
+        DataSource = dsEstoqueMaterial
+        Enabled = False
+        TabOrder = 0
+      end
+    end
+    object gbU6: TGroupBox
+      Left = 145
+      Top = 6
+      Width = 142
+      Height = 41
+      Caption = 'Opera'#231#227'o'
+      TabOrder = 2
+      object cboOperacao: TDBComboBox
+        Left = 3
+        Top = 15
+        Width = 136
+        Height = 21
+        DataField = 'OPERACAO'
+        DataSource = dsEstoqueMaterial
+        Enabled = False
+        Items.Strings = (
+          'Entrada'
+          'Sa'#237'da')
+        TabOrder = 0
+      end
+    end
+    object gbFuncionario: TGroupBox
+      Left = 309
+      Top = 6
+      Width = 265
+      Height = 41
+      Caption = 'Funcionario'
+      TabOrder = 3
+      Visible = False
+      object cboFuncionario: TDBLookupComboBox
+        Left = 3
+        Top = 15
+        Width = 259
+        Height = 21
+        DataField = 'CODFUNC'
+        DataSource = dsEstoqueMaterial
+        Enabled = False
+        KeyField = 'COD'
+        ListField = 'NOME'
+        ListSource = dsFuncionario
+        TabOrder = 0
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 8
+      Top = 53
+      Width = 566
+      Height = 41
+      Caption = 'Observa'#231#227'o'
+      TabOrder = 4
+      object edtObservacao: TDBEdit
+        Left = 3
+        Top = 15
+        Width = 560
+        Height = 21
+        DataField = 'OBSERVACAO'
+        DataSource = dsEstoqueMaterial
+        Enabled = False
+        TabOrder = 0
+      end
+    end
+  end
+  object Panel3: TPanel [6]
+    Left = 0
+    Top = 155
+    Width = 1000
+    Height = 4
+    Align = alTop
+    Color = clSkyBlue
+    ParentBackground = False
+    TabOrder = 4
+  end
+  object GroupBox4: TGroupBox [7]
+    Left = 8
+    Top = 183
+    Width = 320
+    Height = 41
+    Caption = 'Material'
+    TabOrder = 5
+    object cboMateriais: TDBLookupComboBox
+      Left = 3
+      Top = 15
+      Width = 314
+      Height = 21
+      Enabled = False
+      KeyField = 'COD'
+      ListField = 'NOME'
+      ListSource = dsMateriais
+      TabOrder = 0
+    end
+  end
+  object GroupBox5: TGroupBox [8]
+    Left = 348
+    Top = 183
+    Width = 117
+    Height = 41
+    Caption = 'Quantidade'
+    TabOrder = 6
+    object edtQtdMaterial: TEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object btnIncluirMaterial: TButton [9]
+    Left = 485
+    Top = 188
+    Width = 89
+    Height = 36
+    Caption = 'Incluir'
+    Enabled = False
+    TabOrder = 7
+    OnClick = btnIncluirMaterialClick
+  end
+  object listMateriais: TCheckListBox [10]
+    Left = 8
+    Top = 230
+    Width = 566
+    Height = 99
+    Enabled = False
+    ItemHeight = 13
+    TabOrder = 8
+  end
+  object btnExcluirMaterial: TButton [11]
+    Left = 8
+    Top = 335
+    Width = 114
+    Height = 25
+    Caption = 'Excluir Selecionados'
+    Enabled = False
+    TabOrder = 9
+    OnClick = btnExcluirMaterialClick
+  end
+  object dbgMateriaisEmEstoque: TDBGrid [12]
+    Left = 608
+    Top = 188
+    Width = 376
+    Height = 141
+    DataSource = dsMateriaisEmEstoque
+    ReadOnly = True
+    TabOrder = 10
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object dsEstoqueMaterial: TDataSource
+    DataSet = dmEstoqueMaterial.cdsEstoqueMaterial
+    Left = 232
+    Top = 368
+  end
+  object dsMateriais: TDataSource
+    DataSet = dmEstoqueMaterial.cdsMateriais
+    Left = 408
+    Top = 368
+  end
+  object dsFuncionario: TDataSource
+    DataSet = dmEstoqueMaterial.cdsFuncionario
+    Left = 328
+    Top = 368
+  end
+  object dsItensEstoque: TDataSource
+    DataSet = dmEstoqueMaterial.cdsItensEstoque
+    Left = 496
+    Top = 368
+  end
+  object dsMateriaisEmEstoque: TDataSource
+    DataSet = dmEstoqueMaterial.cdsMateriaisEmEstoque
+    Left = 600
+    Top = 368
+  end
+end

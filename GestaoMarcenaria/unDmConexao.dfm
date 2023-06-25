@@ -7,17 +7,16 @@ object dmConexao: TdmConexao
   object fdConnection: TFDConnection
     ConnectionName = 'ConexaoMarcenaria'
     Params.Strings = (
-      
-        'Database=C:\Users\kaique.fernandes\Documents\GitHub\GestaoMarcen' +
-        'ariaDelphi\GestaoMarcenaria\Win32\Debug\DBMARCENARIADOCATARINA.F' +
-        'DB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'Server=localhost'
       'Port=3050'
       'CharacterSet=UTF8'
+      
+        'Database=C:\Users\kaiqu\OneDrive\Documentos\GitHub\GestaoMarcena' +
+        'riaDelphi\GestaoMarcenaria\Win32\Debug\DBMARCENARIADOCATARINA.FD' +
+        'B'
       'DriverID=FbDriverLink')
-    Connected = True
     Left = 176
     Top = 32
   end

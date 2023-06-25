@@ -3,32 +3,65 @@ unit unEstoqueMaterial;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
   Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
   Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.WinXCtrls, Vcl.StdCtrls,
-  Vcl.Mask, Vcl.DBCtrls, System.UITypes;
+  Vcl.Mask, Vcl.DBCtrls, System.UITypes, VCLTee.TeCanvas,
+  System.Generics.Collections,
+  Vcl.CheckLst;
 
 type
+
+  TMaterial = class
+  public
+    CodMat: Integer;
+    QtdMat: Integer;
+    IdList: Integer;
+    // CodMov: Integer;
+  end;
+
   TfrmEstoqueMaterial = class(TfrmPadrao)
     dsEstoqueMaterial: TDataSource;
+    dsMateriais: TDataSource;
+    dsFuncionario: TDataSource;
+    Panel2: TPanel;
     gbF4: TGroupBox;
     edtCodigoEstoqueMaterial: TDBEdit;
-    gbF5: TGroupBox;
-    tgsSituacaoEstoqueMaterial: TToggleSwitch;
-    GroupBox1: TGroupBox;
-    edtDataInativacaoEstoqueMaterial: TDBEdit;
+    GroupBox3: TGroupBox;
+    edtDataMovimentacao: TDBEdit;
+    gbU6: TGroupBox;
+    gbFuncionario: TGroupBox;
+    cboFuncionario: TDBLookupComboBox;
     GroupBox2: TGroupBox;
-    edtDataInclusaoEstoqueMaterial: TDBEdit;
+    edtObservacao: TDBEdit;
+    Panel3: TPanel;
+    GroupBox4: TGroupBox;
+    Label1: TLabel;
+    GroupBox5: TGroupBox;
+    btnIncluirMaterial: TButton;
+    cboMateriais: TDBLookupComboBox;
+    edtQtdMaterial: TEdit;
+    dsItensEstoque: TDataSource;
+    listMateriais: TCheckListBox;
+    btnExcluirMaterial: TButton;
+    cboOperacao: TDBComboBox;
+    dbgMateriaisEmEstoque: TDBGrid;
+    Label2: TLabel;
+    dsMateriaisEmEstoque: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure dsEstoqueMaterialDataChange(Sender: TObject; Field: TField);
     procedure actIncluirExecute(Sender: TObject);
-    procedure actAlterarExecute(Sender: TObject);
     procedure actExcluirExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
     procedure actSalvarExecute(Sender: TObject);
+    procedure btnIncluirMaterialClick(Sender: TObject);
+    procedure cboOperacaoChange(Sender: TObject);
+    procedure btnExcluirMaterialClick(Sender: TObject);
+    procedure edtDataMovimentacaoChange(Sender: TObject);
+
   private
     { Private declarations }
     procedure AtualizaNomeGrid;
@@ -40,20 +73,13 @@ type
 
 var
   frmEstoqueMaterial: TfrmEstoqueMaterial;
+  ListaMateriais: TObjectList<TMaterial>;
 
 implementation
 
 {$R *.dfm}
 
 uses unDmEstoqueMaterial;
-
-procedure TfrmEstoqueMaterial.actAlterarExecute(Sender: TObject);
-begin
-  inherited;
-  InclusaoEdicao;
-  dmEstoqueMaterial.cdsEstoqueMaterial.Edit;
-//  edtNomeMaterial.SetFocus;
-end;
 
 procedure TfrmEstoqueMaterial.actCancelarExecute(Sender: TObject);
 begin
@@ -62,7 +88,12 @@ begin
   begin
     dmEstoqueMaterial.cdsEstoqueMaterial.Cancel;
     DesativaCampos;
+
+    // Limpar todos os registros das listas
+    listMateriais.Clear;
+    ListaMateriais.Clear;
     inherited;
+    btnAlterar.Enabled := false;
   end;
 end;
 
@@ -83,84 +114,180 @@ begin
   inherited;
   InclusaoEdicao;
   dmEstoqueMaterial.cdsEstoqueMaterial.append;
-  edtDataInclusaoEstoqueMaterial.text := FormatDateTime('dd/mm/yyyy', date);
-//  edtNomeMaterial.SetFocus;
+  edtDataMovimentacao.text := FormatDateTime('dd/mm/yyyy', date);
+  // edtNomeMaterial.SetFocus;
 end;
 
 procedure TfrmEstoqueMaterial.actSalvarExecute(Sender: TObject);
+var
+  codigoMovimento: Integer;
+  I: Integer;
+  material: TMaterial;
 begin
-  if tgsSituacaoEstoqueMaterial.state = tssOn then
-  begin
-    dmEstoqueMaterial.cdsEstoqueMaterial.FieldByName('Sit').text := '1';
-    edtDataInativacaoEstoqueMaterial.text := '';
-  end
-  else
-  begin
-    dmEstoqueMaterial.cdsEstoqueMaterial.FieldByName('Sit').text := '0';
-    edtDataInativacaoEstoqueMaterial.text := FormatDateTime('dd/mm/yyyy', date);
-  end;
-
   dmEstoqueMaterial.cdsEstoqueMaterial.post;
   if (dmEstoqueMaterial.cdsEstoqueMaterial.ChangeCount > 0) then
     dmEstoqueMaterial.cdsEstoqueMaterial.ApplyUpdates(-1);
 
+  // Atualizar o TClientDataSet com os dados do servidor
+  dmEstoqueMaterial.cdsEstoqueMaterial.Refresh;
+
+  // Obter o código do registro principal
+  codigoMovimento := dmEstoqueMaterial.cdsEstoqueMaterial.FieldByName('cod')
+    .AsInteger;
+
+  for I := 0 to ListaMateriais.Count - 1 do
+  begin
+    material := ListaMateriais[I];
+
+    // Adicionar um novo registro ao DataSource
+    dmEstoqueMaterial.cdsItensEstoque.append;
+
+    // Preencher os campos com os valores do material
+    dmEstoqueMaterial.cdsItensEstoque.FieldByName('COD').AsInteger := I + 1;
+    dmEstoqueMaterial.cdsItensEstoque.FieldByName('CODMAT').AsInteger :=
+      material.CodMat;
+    dmEstoqueMaterial.cdsItensEstoque.FieldByName('QTDMAT').AsInteger :=
+      material.QtdMat;
+    dmEstoqueMaterial.cdsItensEstoque.FieldByName('CODMOV').AsInteger :=
+      codigoMovimento;
+  end;
+
+  // Postar o registro adicionado
+  dmEstoqueMaterial.cdsItensEstoque.post;
+
+  // Aplicar as atualizações no banco de dados
+  if (dmEstoqueMaterial.cdsItensEstoque.ChangeCount > 0) then
+    dmEstoqueMaterial.cdsItensEstoque.ApplyUpdates(-1);
+
   dmEstoqueMaterial.cdsEstoqueMaterial.Close;
   dmEstoqueMaterial.cdsEstoqueMaterial.Open;
+
+  dmEstoqueMaterial.cdsMateriaisEmEstoque.Close;
+  dmEstoqueMaterial.cdsMateriaisEmEstoque.Open;  
+
+  // Limpar todos os registros das listas
+  listMateriais.Clear;
+  ListaMateriais.Clear;
+
   AtualizaNomeGrid;
   DesativaCampos;
+
   inherited;
+  btnAlterar.Enabled := false;
 end;
 
 procedure TfrmEstoqueMaterial.AtualizaNomeGrid;
 var
-  i: Integer;
+  I: Integer;
 begin
-  // Ajusta o tamanho dos campos do grid
-  for i := 0 to dbgFormPadrao.Columns.Count - 1 do
+  // Ajusta o tamanho dos campos do grid Principal
+  for I := 0 to dbgFormPadrao.Columns.Count - 1 do
   begin
-    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODSIT' then
+    if dbgFormPadrao.Columns.Items[I].Title.caption = 'CODFUNC' then
     begin
-      dbgFormPadrao.Columns[i].Visible := false;
+      dbgFormPadrao.Columns[I].Visible := false;
     end;
-    dbgFormPadrao.Columns[i].Width := Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+
+    if dbgFormPadrao.Columns[I].Field.AsString = '' then
+      dbgFormPadrao.Columns[I].Width := dbgFormPadrao.Columns.Items[I].Title.caption.Length + 100
+    else
+      dbgFormPadrao.Columns[I].Width := Canvas.TextWidth(dbgFormPadrao.Columns[I].Field.AsString) + 20;
   end;
+
+    // Ajusta o tamanho dos campos do grid de Estoque
+  for I := 0 to dbgMateriaisEmEstoque.Columns.Count - 1 do
+  begin
+      if dbgMateriaisEmEstoque.Columns[I].Field.AsString = '' then
+      dbgMateriaisEmEstoque.Columns[I].Width := dbgMateriaisEmEstoque.Columns.Items[I].Title.caption.Length + 100
+    else
+      dbgMateriaisEmEstoque.Columns[I].Width := Canvas.TextWidth(dbgMateriaisEmEstoque.Columns[I].Field.AsString) + 20;
+  end;  
+end;
+
+procedure TfrmEstoqueMaterial.btnExcluirMaterialClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  inherited;
+  for I := listMateriais.Count - 1 downto 0 do
+  begin
+    if listMateriais.Checked[I] then
+    begin
+      listMateriais.Items.delete(I);
+      ListaMateriais.Remove(ListaMateriais[I])
+    end;
+  end;
+end;
+
+procedure TfrmEstoqueMaterial.btnIncluirMaterialClick(Sender: TObject);
+var
+  material: TMaterial;
+begin
+  inherited;
+
+  // Cria um novo objeto Material
+  material := TMaterial.Create;
+  material.CodMat := cboMateriais.KeyValue;
+  material.QtdMat := StrToInt(edtQtdMaterial.text);
+  material.IdList := listMateriais.Items.Count;
+  // Material.CodMov := StrToInt(edtCodigoEstoqueMaterial.Text);
+
+  // Adiciona o produto à lista da classe
+  ListaMateriais.Add(material);
+
+  // Adiciona o material ao listBox
+  listMateriais.Items.Add(cboMateriais.text + ' - ' + edtQtdMaterial.text);
+
+  cboMateriais.KeyValue := null;
+  edtQtdMaterial.text := '';
+end;
+
+procedure TfrmEstoqueMaterial.cboOperacaoChange(Sender: TObject);
+begin
+  inherited;
+  if cboOperacao.text = 'Saída' then
+    gbFuncionario.Visible := true
+  else
+    gbFuncionario.Visible := false
 end;
 
 procedure TfrmEstoqueMaterial.DesativaCampos;
 begin
-//  edtNomeMaterial.Enabled := false;
-//  tgsSituacaoEstoqueMaterial.Enabled := false;
-//  tgsSituacaoEstoqueMaterial.state := tssOn;
+  edtDataMovimentacao.Enabled := false;
+  cboOperacao.Enabled := false;
+  cboFuncionario.Enabled := false;
+  edtObservacao.Enabled := false;
+  cboMateriais.Enabled := false;
+  edtQtdMaterial.Enabled := false;
+  btnIncluirMaterial.Enabled := false;
+  listMateriais.Enabled := false;
+  btnExcluirMaterial.Enabled := false;
 end;
 
-procedure TfrmEstoqueMaterial.dsEstoqueMaterialDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmEstoqueMaterial.edtDataMovimentacaoChange(Sender: TObject);
 begin
   inherited;
 
-  if not(dmEstoqueMaterial.cdsEstoqueMaterial.state in [dsEdit, dsInsert])
-  then
-  begin
-
-    if dmEstoqueMaterial.cdsEstoqueMaterial.FieldByName('Sit').text = '1'
-    then
-    begin
-      tgsSituacaoEstoqueMaterial.state := tssOn;
-    end
-    else
-    begin
-      tgsSituacaoEstoqueMaterial.state := tssOff;
-    end;
-  end;
+  if Length(edtDataMovimentacao.Text) = 2 then
+    edtDataMovimentacao.Text := edtDataMovimentacao.Text + '/';
+    TDBEdit(Sender).SelStart := Length(Text); // Mover o cursor para o final do texto
+  if Length(edtDataMovimentacao.Text) = 5 then
+    edtDataMovimentacao.Text := edtDataMovimentacao.Text + '/';
+    TDBEdit(Sender).SelStart := Length(Text); // Mover o cursor para o final do texto
 end;
 
 procedure TfrmEstoqueMaterial.FormCreate(Sender: TObject);
 begin
   inherited;
-  // criando o datamodule de clientes para uso
   if not Assigned(dmEstoqueMaterial) then
     dmEstoqueMaterial := tdmEstoqueMaterial.Create(nil);
-  dsEstoqueMaterial.dataset := dmEstoqueMaterial.cdsEstoqueMaterial;
+    
+  dsEstoqueMaterial.DataSet := dmEstoqueMaterial.cdsEstoqueMaterial; 
+  dsMateriaisEmEstoque.DataSet := dmEstoqueMaterial.cdsMateriaisEmEstoque; 
+  
+
+  // Criar a lista de produtos
+  ListaMateriais := TObjectList<TMaterial>.Create;
 end;
 
 procedure TfrmEstoqueMaterial.FormDestroy(Sender: TObject);
@@ -172,6 +299,8 @@ begin
     dmEstoqueMaterial.cdsEstoqueMaterial.Close;
     freeandnil(dmEstoqueMaterial);
   end;
+  // Liberar a lista de produtos
+  ListaMateriais.Free;
 end;
 
 procedure TfrmEstoqueMaterial.FormShow(Sender: TObject);
@@ -179,14 +308,26 @@ begin
   inherited;
   // abro o dataset
   dmEstoqueMaterial.cdsEstoqueMaterial.Open;
+  dmEstoqueMaterial.cdsFuncionario.Open;
+  dmEstoqueMaterial.cdsMateriais.Open;
+  dmEstoqueMaterial.cdsItensEstoque.Open;
+  dmEstoqueMaterial.cdsMateriaisEmEstoque.Open;
   AtualizaNomeGrid;
+  btnAlterar.Enabled := false;
 end;
 
 procedure TfrmEstoqueMaterial.InclusaoEdicao;
 begin
-//  edtNomeMaterial.Enabled := true;
-//  tgsSituacaoEstoqueMaterial.Enabled := true;
-//  tgsSituacaoEstoqueMaterial.state := tssOn;
+  edtDataMovimentacao.Enabled := true;
+  cboOperacao.Enabled := true;
+  cboFuncionario.Enabled := true;
+  edtObservacao.Enabled := true;
+  cboMateriais.Enabled := true;
+  edtQtdMaterial.Enabled := true;
+  btnIncluirMaterial.Enabled := true;
+  listMateriais.Enabled := true;
+  btnExcluirMaterial.Enabled := true;
+  btnAlterar.Enabled := false;  
 end;
 
 end.

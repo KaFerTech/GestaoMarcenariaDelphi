@@ -119,24 +119,22 @@ procedure TfrmCadastroFornecedor.actSalvarExecute(Sender: TObject);
 begin
   if tgsSituacaoFornecedor.state = tssOn then
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text := '1';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODSIT').text := '1';
     edtDataInativacaoFornecedor.text := '';
   end
   else
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text := '0';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODSIT').text := '0';
     edtDataInativacaoFornecedor.text := FormatDateTime('dd/mm/yyyy', date);
   end;
 
   if rdbComercial.Checked = true then
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text := 'C';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODTIPOENDERECO').text := 'C';
   end
   else
   begin
-    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text := 'R';
+    dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODTIPOENDERECO').text := 'R';
   end;
 
   dmCadastroFornecedor.cdsCadastroFornecedor.post;
@@ -163,7 +161,15 @@ begin
       dbgFormPadrao.Columns[i].Visible := false;
     end;
 
-    dbgFormPadrao.Columns[i].Width := Canvas.TextWidth(dbgFormPadrao.Columns[i].Field.AsString) + 20;
+    if dbgFormPadrao.Columns.Items[i].Title.caption = 'CODTIPOENDERECO' then
+    begin
+      dbgFormPadrao.Columns[i].Visible := false;
+    end;
+
+    if dbgFormPadrao.Columns[I].Field.AsString = '' then
+      dbgFormPadrao.Columns[I].Width := dbgFormPadrao.Columns.Items[I].Title.caption.Length + 80
+    else
+      dbgFormPadrao.Columns[I].Width := Canvas.TextWidth(dbgFormPadrao.Columns[I].Field.AsString) + 20;
   end;
 end;
 
@@ -196,7 +202,7 @@ begin
   then
   begin
 
-    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('Sit').text = '1'
+    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODSIT').text = '1'
     then
     begin
       tgsSituacaoFornecedor.state := tssOn;
@@ -206,8 +212,7 @@ begin
       tgsSituacaoFornecedor.state := tssOff;
     end;
 
-    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('TIPOENDERECO')
-      .text = 'C' then
+    if dmCadastroFornecedor.cdsCadastroFornecedor.FieldByName('CODTIPOENDERECO').text = 'C' then
     begin
       rdbComercial.Checked := true;
     end

@@ -13,6 +13,18 @@ type
     qryEstoqueMaterial: TFDQuery;
     dspEstoqueMaterial: TDataSetProvider;
     cdsEstoqueMaterial: TClientDataSet;
+    qryFuncionario: TFDQuery;
+    dspFuncionario: TDataSetProvider;
+    cdsFuncionario: TClientDataSet;
+    qryMaterias: TFDQuery;
+    dspMateriais: TDataSetProvider;
+    cdsMateriais: TClientDataSet;
+    qryItensEstoque: TFDQuery;
+    dspItensEstoque: TDataSetProvider;
+    cdsItensEstoque: TClientDataSet;
+    qryMateriaisEmEstoque: TFDQuery;
+    dspMateriaisEmEstoque: TDataSetProvider;
+    cdsMateriaisEmEstoque: TClientDataSet;
   private
     { Private declarations }
   public

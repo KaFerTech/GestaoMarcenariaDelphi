@@ -23476,9 +23476,9 @@ object frmSobre: TfrmSobre
     object ProductName: TLabel
       Left = 192
       Top = 21
-      Width = 121
+      Width = 154
       Height = 13
-      Caption = 'BussinesCat'
+      Caption = 'BussinesCat - Gest'#227'oMarcenaria'
       IsControl = True
     end
     object Version: TLabel
@@ -23492,16 +23492,18 @@ object frmSobre: TfrmSobre
     object Copyright: TLabel
       Left = 8
       Top = 168
-      Width = 247
+      Width = 343
       Height = 13
-      Caption = #169' [2023] BussinesCat. Todos os direitos reservados.'
+      Caption = 
+        #169' [2023] BussinesCat - Gest'#227'oMarcenaria. Todos os direitos reser' +
+        'vados.'
       IsControl = True
     end
     object Comments: TLabel
       Left = 8
       Top = 187
-      Width = 281
-      Height = 18
+      Width = 186
+      Height = 13
       Caption = 'Desenvolvido por KaFerTech Solu'#231#245'es'
       WordWrap = True
       IsControl = True

@@ -1,10 +1,16 @@
 object dmEstoqueMaterial: TdmEstoqueMaterial
   OldCreateOrder = False
   Height = 271
-  Width = 347
+  Width = 745
   object qryEstoqueMaterial: TFDQuery
     Connection = dmConexao.fdConnection
     UpdateOptions.AutoIncFields = 'COD'
+    SQL.Strings = (
+      'SELECT m.COD, m.DATMOV, m.CODFUNC, '
+      'f.NOME FUNCIONARIO, m.OPERACAO, m.OBSERVACAO'
+      'FROM MOVMATERIAL m'
+      'left join FUNCIONARIO f on m.CODFUNC = f.COD'
+      '')
     Left = 168
     Top = 40
   end
@@ -18,6 +24,117 @@ object dmEstoqueMaterial: TdmEstoqueMaterial
     Params = <>
     ProviderName = 'dspEstoqueMaterial'
     Left = 168
+    Top = 168
+  end
+  object qryFuncionario: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'SELECT * FROM FUNCIONARIO')
+    Left = 288
+    Top = 40
+  end
+  object dspFuncionario: TDataSetProvider
+    DataSet = qryFuncionario
+    Left = 288
+    Top = 104
+  end
+  object cdsFuncionario: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspFuncionario'
+    Left = 288
+    Top = 168
+  end
+  object qryMaterias: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'SELECT * FROM MATERIAL')
+    Left = 400
+    Top = 40
+  end
+  object dspMateriais: TDataSetProvider
+    DataSet = qryMaterias
+    Left = 400
+    Top = 104
+  end
+  object cdsMateriais: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMateriais'
+    Left = 400
+    Top = 168
+  end
+  object qryItensEstoque: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'select * from MOVMATERIALITEM')
+    Left = 488
+    Top = 40
+  end
+  object dspItensEstoque: TDataSetProvider
+    DataSet = qryItensEstoque
+    Left = 488
+    Top = 104
+  end
+  object cdsItensEstoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspItensEstoque'
+    Left = 488
+    Top = 168
+  end
+  object qryMateriaisEmEstoque: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'SELECT m.COD, m.NOME AS MATERIAL,  '
+      
+        '(COALESCE(entradas.total_entradas, 0) - COALESCE(saidas.total_sa' +
+        'idas, 0)) AS QTD,'
+      'gm.NOME AS GRUPO'
+      'FROM MATERIAL m'
+      'LEFT JOIN ('
+      '    SELECT mi.CODMAT, SUM(mi.QTDMAT) AS total_entradas'
+      '    FROM MOVMATERIALITEM mi'
+      
+        '    INNER JOIN MOVMATERIAL mm ON mm.COD = mi.CODMOV AND mm.OPERA' +
+        'CAO = '#39'Entrada'#39
+      '    GROUP BY mi.CODMAT'
+      ') entradas ON entradas.CODMAT = m.COD'
+      'LEFT JOIN ('
+      '    SELECT mi.CODMAT, SUM(mi.QTDMAT) AS total_saidas'
+      '    FROM MOVMATERIALITEM mi'
+      
+        '    INNER JOIN MOVMATERIAL mm ON mm.COD = mi.CODMOV AND mm.OPERA' +
+        'CAO = '#39'Sa'#237'da'#39
+      '    GROUP BY mi.CODMAT'
+      ') saidas ON saidas.CODMAT = m.COD'
+      'LEFT JOIN GRUPOMATERIAL gm on gm.COD = m.CODGRUPOMATERIAL'
+      ';')
+    Left = 600
+    Top = 40
+  end
+  object dspMateriaisEmEstoque: TDataSetProvider
+    DataSet = qryMateriaisEmEstoque
+    Left = 600
+    Top = 104
+  end
+  object cdsMateriaisEmEstoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMateriaisEmEstoque'
+    Left = 600
     Top = 168
   end
 end

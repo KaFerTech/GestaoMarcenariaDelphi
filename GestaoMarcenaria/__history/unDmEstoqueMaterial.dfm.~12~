@@ -1,0 +1,90 @@
+object dmEstoqueMaterial: TdmEstoqueMaterial
+  OldCreateOrder = False
+  Height = 271
+  Width = 583
+  object qryEstoqueMaterial: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AutoIncFields = 'COD'
+    SQL.Strings = (
+      'SELECT * FROM MOVMATERIAL')
+    Left = 168
+    Top = 40
+  end
+  object dspEstoqueMaterial: TDataSetProvider
+    DataSet = qryEstoqueMaterial
+    Left = 168
+    Top = 104
+  end
+  object cdsEstoqueMaterial: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEstoqueMaterial'
+    Left = 168
+    Top = 168
+  end
+  object qryFuncionario: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'SELECT * FROM FUNCIONARIO')
+    Left = 288
+    Top = 40
+  end
+  object dspFuncionario: TDataSetProvider
+    DataSet = qryFuncionario
+    Left = 288
+    Top = 104
+  end
+  object cdsFuncionario: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspFuncionario'
+    Left = 288
+    Top = 168
+  end
+  object qryMaterias: TFDQuery
+    Connection = dmConexao.fdConnection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'SELECT * FROM MATERIAL')
+    Left = 400
+    Top = 40
+  end
+  object dspMateriais: TDataSetProvider
+    DataSet = qryMaterias
+    Left = 400
+    Top = 104
+  end
+  object cdsMateriais: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMateriais'
+    Left = 400
+    Top = 168
+  end
+  object qryItensEstoque: TFDQuery
+    Connection = dmConexao.fdConnection
+    SQL.Strings = (
+      'select * from MOVMATERIALITEM')
+    Left = 488
+    Top = 40
+  end
+  object dspItensEstoque: TDataSetProvider
+    DataSet = qryItensEstoque
+    Left = 488
+    Top = 104
+  end
+  object cdsItensEstoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspItensEstoque'
+    Left = 488
+    Top = 168
+  end
+end
