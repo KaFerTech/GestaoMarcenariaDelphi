@@ -1,5 +1,5 @@
 object dmOrcamento: TdmOrcamento
   OldCreateOrder = False
-  Height = 348
-  Width = 521
+  Height = 150
+  Width = 215
 end

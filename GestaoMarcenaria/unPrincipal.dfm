@@ -180,6 +180,12 @@
       object N3: TMenuItem
         Caption = '-'
       end
+      object ProdutosdeVenda1: TMenuItem
+        Caption = 'Produtos de Venda'
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
       object mmFecharSistema: TMenuItem
         Action = actFecharSistema
       end

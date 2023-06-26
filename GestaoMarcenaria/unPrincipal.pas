@@ -77,6 +77,8 @@ type
     Email1: TMenuItem;
     EnviarEmail1: TMenuItem;
     actConfigurarEmail: TAction;
+    N4: TMenuItem;
+    ProdutosdeVenda1: TMenuItem;
     procedure actCadastroUsuarioExecute(Sender: TObject);
     procedure btnFecharSistemaClick(Sender: TObject);
     procedure actFecharSistemaExecute(Sender: TObject);
