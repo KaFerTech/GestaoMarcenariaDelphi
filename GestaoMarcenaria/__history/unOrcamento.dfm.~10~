@@ -1,0 +1,381 @@
+inherited frmOrcamento: TfrmOrcamento
+  Caption = 'Or'#231'amento'
+  PixelsPerInch = 96
+  TextHeight = 13
+  object gbU6: TGroupBox [3]
+    Left = 8
+    Top = 56
+    Width = 279
+    Height = 42
+    Caption = 'Cliente'
+    TabOrder = 3
+    object cboClienteOS: TDBLookupComboBox
+      Left = 3
+      Top = 16
+      Width = 273
+      Height = 21
+      DataField = 'CODUSUARIO'
+      Enabled = False
+      KeyField = 'COD'
+      ListField = 'LOGIN'
+      TabOrder = 0
+    end
+  end
+  object GroupBox1: TGroupBox [4]
+    Left = 875
+    Top = 197
+    Width = 117
+    Height = 41
+    Anchors = [akTop, akRight]
+    Caption = 'Data de Inativa'#231#227'o'
+    TabOrder = 4
+    object edtDataStatusOS: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'DATINAT'
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object gbF5: TGroupBox [5]
+    Left = 875
+    Top = 150
+    Width = 117
+    Height = 41
+    Anchors = [akTop, akRight]
+    Caption = 'Status da OS'
+    TabOrder = 5
+    object cboStatusOS: TDBComboBox
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      Items.Strings = (
+        'Or'#231'amento'
+        'Aguardando aprova'#231#227'o'
+        'Planejamento e projeto'
+        'Aguardando confirma'#231#227'o'
+        'Em produ'#231#227'o'
+        'Montagem no cliente'
+        'Finalizado/Entregue')
+      TabOrder = 0
+    end
+  end
+  object GroupBox2: TGroupBox [6]
+    Left = 875
+    Top = 103
+    Width = 117
+    Height = 41
+    Anchors = [akTop, akRight]
+    Caption = 'Data de Inclus'#227'o'
+    TabOrder = 6
+    object edtDataInclusaoOS: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'DATCAD'
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object gbF4: TGroupBox [7]
+    Left = 875
+    Top = 56
+    Width = 117
+    Height = 41
+    Anchors = [akTop, akRight]
+    Caption = 'C'#243'digo'
+    TabOrder = 7
+    object edtCodigoOS: TDBEdit
+      Left = 3
+      Top = 15
+      Width = 111
+      Height = 21
+      DataField = 'COD'
+      Enabled = False
+      TabOrder = 0
+    end
+  end
+  object GroupBox3: TGroupBox [8]
+    Left = 309
+    Top = 56
+    Width = 162
+    Height = 42
+    Caption = 'Nome do Contato'
+    TabOrder = 8
+    object edtNomeContato: TDBEdit
+      Left = 3
+      Top = 16
+      Width = 156
+      Height = 21
+      TabOrder = 0
+    end
+  end
+  object GroupBox4: TGroupBox [9]
+    Left = 491
+    Top = 56
+    Width = 134
+    Height = 42
+    Caption = 'Telefone'
+    TabOrder = 9
+    object edtTelefoneContato: TDBEdit
+      Left = 3
+      Top = 16
+      Width = 128
+      Height = 21
+      TabOrder = 0
+    end
+  end
+  object PageControl1: TPageControl [10]
+    Left = 8
+    Top = 104
+    Width = 841
+    Height = 346
+    ActivePage = tbsProdutos
+    Anchors = [akLeft, akTop, akBottom]
+    TabOrder = 10
+    object tbsProdutos: TTabSheet
+      Caption = 'Produtos'
+      DesignSize = (
+        833
+        318)
+      object dbgProdutos: TDBGrid
+        Left = 249
+        Top = 3
+        Width = 358
+        Height = 312
+        Anchors = [akTop, akBottom]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object GroupBox5: TGroupBox
+        Left = 3
+        Top = 50
+        Width = 240
+        Height = 41
+        Caption = 'Descri'#231#227'o Produto'
+        TabOrder = 1
+        object edtDescricaoProduto: TDBEdit
+          Left = 3
+          Top = 17
+          Width = 234
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox6: TGroupBox
+        Left = 3
+        Top = 97
+        Width = 240
+        Height = 41
+        Caption = 'Complemento do Produto'
+        TabOrder = 2
+        object edtComplementoProduto: TDBEdit
+          Left = 3
+          Top = 16
+          Width = 234
+          Height = 21
+          AutoSize = False
+          TabOrder = 0
+        end
+      end
+      object GroupBox7: TGroupBox
+        Left = 85
+        Top = 144
+        Width = 76
+        Height = 41
+        Caption = 'Largura'
+        TabOrder = 3
+        object edtLarguraProduto: TDBEdit
+          Left = 3
+          Top = 15
+          Width = 70
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox8: TGroupBox
+        Left = 3
+        Top = 144
+        Width = 76
+        Height = 41
+        Caption = 'Altura'
+        TabOrder = 4
+        object edtAlturaProduto: TDBEdit
+          Left = 3
+          Top = 15
+          Width = 70
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox9: TGroupBox
+        Left = 3
+        Top = 191
+        Width = 240
+        Height = 41
+        Caption = 'Material'
+        TabOrder = 5
+        object DBLookupComboBox1: TDBLookupComboBox
+          Left = 3
+          Top = 15
+          Width = 234
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox12: TGroupBox
+        Left = 3
+        Top = 238
+        Width = 240
+        Height = 41
+        Caption = 'Acabamento'
+        TabOrder = 6
+        object DBLookupComboBox2: TDBLookupComboBox
+          Left = 3
+          Top = 15
+          Width = 234
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox16: TGroupBox
+        Left = 613
+        Top = 3
+        Width = 217
+        Height = 41
+        Caption = 'Outros Materiais'
+        TabOrder = 7
+        object DBLookupComboBox3: TDBLookupComboBox
+          Left = 3
+          Top = 15
+          Width = 206
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox11: TGroupBox
+        Left = 613
+        Top = 50
+        Width = 78
+        Height = 41
+        Caption = 'Qtd Material'
+        TabOrder = 8
+        object DBEdit1: TDBEdit
+          Left = 3
+          Top = 15
+          Width = 72
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox13: TGroupBox
+        Left = 167
+        Top = 144
+        Width = 76
+        Height = 41
+        Caption = 'Profundidade'
+        TabOrder = 9
+        object edtProfundidadeProduto: TDBEdit
+          Left = 3
+          Top = 15
+          Width = 70
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object btnAdicionarProduto: TButton
+        Left = 75
+        Top = 285
+        Width = 99
+        Height = 30
+        Caption = 'Adicionar Produto'
+        TabOrder = 10
+      end
+      object GroupBox15: TGroupBox
+        Left = 134
+        Top = 3
+        Width = 78
+        Height = 41
+        Caption = 'Quantidade'
+        TabOrder = 11
+        object edtQtdProduto: TDBEdit
+          Left = 3
+          Top = 15
+          Width = 72
+          Height = 21
+          TabOrder = 0
+        end
+      end
+      object GroupBox14: TGroupBox
+        Left = 27
+        Top = 3
+        Width = 85
+        Height = 41
+        Caption = 'SubProduto'
+        TabOrder = 12
+        object ToggleSwitch1: TToggleSwitch
+          Left = 7
+          Top = 16
+          Width = 72
+          Height = 20
+          TabOrder = 0
+        end
+      end
+      object dbgMateriais: TDBGrid
+        Left = 613
+        Top = 97
+        Width = 217
+        Height = 218
+        TabOrder = 13
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+  end
+  object GroupBox10: TGroupBox [11]
+    Left = 648
+    Top = 56
+    Width = 201
+    Height = 42
+    Caption = 'Funcionario Responsavel'
+    TabOrder = 11
+    object cboUsuarioFuncionario: TDBLookupComboBox
+      Left = 3
+      Top = 16
+      Width = 195
+      Height = 21
+      DataField = 'CODUSUARIO'
+      Enabled = False
+      KeyField = 'COD'
+      ListField = 'LOGIN'
+      TabOrder = 0
+    end
+  end
+  object Button1: TButton [12]
+    Left = 725
+    Top = 183
+    Width = 99
+    Height = 36
+    Caption = 'Adicionar Material'
+    TabOrder = 12
+  end
+  inherited imgListFormPadrao: TImageList
+    Left = 936
+    Top = 360
+  end
+  inherited actFormPadrao: TActionList
+    Left = 936
+    Top = 312
+  end
+end

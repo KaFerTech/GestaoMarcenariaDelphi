@@ -88,9 +88,9 @@ object frmPadrao: TfrmPadrao
   end
   object dbgFormPadrao: TDBGrid
     Left = 0
-    Top = 410
+    Top = 456
     Width = 1000
-    Height = 240
+    Height = 194
     Align = alBottom
     ReadOnly = True
     TabOrder = 2
@@ -104,7 +104,7 @@ object frmPadrao: TfrmPadrao
     Height = 40
     Width = 40
     Left = 128
-    Top = 368
+    Top = 408
     Bitmap = {
       494C010106000800040028002800FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000A000000050000000010020000000000000C8
@@ -1766,7 +1766,7 @@ object frmPadrao: TfrmPadrao
   object actFormPadrao: TActionList
     Images = imgListFormPadrao
     Left = 32
-    Top = 368
+    Top = 408
     object actIncluir: TAction
       Caption = 'Incluir'
       ImageIndex = 0

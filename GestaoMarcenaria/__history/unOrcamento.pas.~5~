@@ -1,0 +1,71 @@
+unit unOrcamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, unFormPadrao, Data.DB, System.Actions,
+  Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.Mask;
+
+type
+  TfrmOrcamento = class(TfrmPadrao)
+    gbU6: TGroupBox;
+    cboClienteOS: TDBLookupComboBox;
+    GroupBox1: TGroupBox;
+    edtDataStatusOS: TDBEdit;
+    gbF5: TGroupBox;
+    GroupBox2: TGroupBox;
+    edtDataInclusaoOS: TDBEdit;
+    gbF4: TGroupBox;
+    edtCodigoOS: TDBEdit;
+    cboStatusOS: TDBComboBox;
+    GroupBox3: TGroupBox;
+    edtNomeContato: TDBEdit;
+    GroupBox4: TGroupBox;
+    edtTelefoneContato: TDBEdit;
+    PageControl1: TPageControl;
+    tbsProdutos: TTabSheet;
+    DBGrid1: TDBGrid;
+    GroupBox5: TGroupBox;
+    edtDescricaoProduto: TDBEdit;
+    GroupBox6: TGroupBox;
+    DBEdit1: TDBEdit;
+    GroupBox7: TGroupBox;
+    edtLargura: TDBEdit;
+    GroupBox8: TGroupBox;
+    edtAltura: TDBEdit;
+    GroupBox9: TGroupBox;
+    edtMaterialProduto: TDBEdit;
+    GroupBox10: TGroupBox;
+    edtQtdGavetas: TDBEdit;
+    GroupBox11: TGroupBox;
+    edtQtdCorredicas: TDBEdit;
+    GroupBox12: TGroupBox;
+    edtAcabamentoProduto: TDBEdit;
+    GroupBox13: TGroupBox;
+    edtQtdPortas: TDBEdit;
+    GroupBox14: TGroupBox;
+    DBEdit7: TDBEdit;
+    GroupBox15: TGroupBox;
+    edtQtdPuxadores: TDBEdit;
+    GroupBox16: TGroupBox;
+    edtPuxador: TDBEdit;
+    GroupBox17: TGroupBox;
+    edtMaterialGavetas: TDBEdit;
+    edtMaterialPortas: TGroupBox;
+    DBEdit3: TDBEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmOrcamento: TfrmOrcamento;
+
+implementation
+
+{$R *.dfm}
+
+end.

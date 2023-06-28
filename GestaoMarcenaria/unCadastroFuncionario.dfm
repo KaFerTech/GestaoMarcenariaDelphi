@@ -430,11 +430,11 @@ inherited frmCadastroFuncionario: TfrmCadastroFuncionario
     DataSet = dmCadastroFuncionario.cdsCadastroFuncionario
     OnDataChange = dsCadastroFuncionarioDataChange
     Left = 232
-    Top = 368
+    Top = 408
   end
   object dsUsuarioFuncionario: TDataSource
     DataSet = dmCadastroFuncionario.cdsUsuarioFuncionario
     Left = 352
-    Top = 368
+    Top = 408
   end
 end
