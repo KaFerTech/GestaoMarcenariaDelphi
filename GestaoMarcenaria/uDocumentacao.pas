@@ -13,4 +13,15 @@ implementation
 //sourcetree
 
 
+//CANAIS DE CONTEUDO
+//embarcadero, youtube, linkedin
+//99 coders
+//academia do Código
+//Delphi Academy
+//documentação - docwiki.embarcadero.com
+
+//madexcept delphi - Encontrar erros
+
+
+
 end.

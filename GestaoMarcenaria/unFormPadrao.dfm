@@ -92,6 +92,7 @@ object frmPadrao: TfrmPadrao
     Width = 1000
     Height = 194
     Align = alBottom
+    DrawingStyle = gdsGradient
     ReadOnly = True
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
